@@ -2,7 +2,7 @@
 
 namespace KeyboardTrainer.ViewModel
 {
-	public class OptionsViewModel : ViewModelBase
+	public class SettingsViewModel : ViewModelBase
 	{
 	}
 }

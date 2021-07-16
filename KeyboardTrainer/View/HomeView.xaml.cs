@@ -1,6 +1,6 @@
-﻿using KeyboardTrainer.ViewModel;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
+using System.Windows.Input;
 
 namespace KeyboardTrainer.View
 {
@@ -12,6 +12,19 @@ namespace KeyboardTrainer.View
 		public HomeView()
 		{
 			InitializeComponent();
+		}
+
+		private void FocusOnMouseDown(object sender, MouseButtonEventArgs e)
+		{
+			((UIElement)sender).Focus();
+		}
+
+		private void VisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			if ((bool)e.NewValue)
+			{
+				((UIElement)sender).Focus();
+			}
 		}
 	}
 }

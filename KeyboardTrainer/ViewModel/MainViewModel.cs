@@ -13,7 +13,7 @@ namespace KeyboardTrainer.ViewModel
 		public RelayCommand<Window> MoveWindowCommand { get; set; }
 
 		private readonly HomeViewModel _homeVM;
-		private readonly OptionsViewModel _optionsVM;
+		private readonly SettingsViewModel _optionsVM;
 
 		private object _currentView;
 
@@ -35,7 +35,7 @@ namespace KeyboardTrainer.ViewModel
 		public MainViewModel()
 		{
 			_homeVM = ViewModelLocator.GetViewModel<HomeViewModel>();
-			_optionsVM = ViewModelLocator.GetViewModel<OptionsViewModel>();
+			_optionsVM = ViewModelLocator.GetViewModel<SettingsViewModel>();
 
 			CurrentView = _homeVM;
 

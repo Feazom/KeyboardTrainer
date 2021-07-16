@@ -8,29 +8,29 @@
 		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
         mc:Ignorable="d"
 		DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
-		Title="Keyboard trainer" Height="600" Width="920" 
+		Title="Keyboard trainer" Height="600" Width="1000" 
 		WindowStyle="None"
 		ResizeMode="NoResize"
 		Background="Transparent"
 		AllowsTransparency="True">
 
-	<Border Background="#272537"
+    <Border Background="#EAEAEA"
 			CornerRadius="10">
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="200"/>
-				<ColumnDefinition/>
-			</Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
 
-			<Grid.RowDefinitions>
-				<RowDefinition Height="60"/>
-				<RowDefinition/>
-			</Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
 
-			<Border Grid.ColumnSpan="2" 
+            <Border Grid.ColumnSpan="2" 
 					Margin="0"
 					CornerRadius="10,10,0,0"
-					Background="#54506e">
+					Background="#9A9A9A">
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonDown">
@@ -41,7 +41,7 @@
 
             </Border>
 
-			<Button HorizontalAlignment="Right" 
+            <Button HorizontalAlignment="Right" 
 					Height="30" 
 					Margin="0,0,45,0"
 					BorderThickness="0"
@@ -51,9 +51,10 @@
 					Command="{Binding MinimizeWindowCommand}"
 					CommandParameter="{Binding ElementName=Window}">
 
-				<Image Source="Images/MinimizeButton.png"/>
-			</Button>
-			<Button	HorizontalAlignment="Right" 
+                <Image Source="Images/minimize.png"
+					Width="17"/>
+            </Button>
+            <Button	HorizontalAlignment="Right" 
 					Height="30" 
 					Margin="0"
 					BorderThickness="0"
@@ -63,13 +64,13 @@
 					Command="{Binding CloseWindowCommand}"
 					CommandParameter="{Binding ElementName=Window}">
 
-				<Image Source="Images/CloseButton.png"/>
-			</Button>
+                <Image Source="Images/blackClose.png"
+					Width="17"/>
+            </Button>
 
             <TextBlock Text="Key Trainer"
 					   VerticalAlignment="Center"
 					   HorizontalAlignment="Left"
-					   Foreground="White"
 					   FontSize="22"
 					   Margin="20,0,0,0">
 
@@ -82,33 +83,30 @@
             </TextBlock>
 
             <StackPanel Grid.Row="1"
-						Background="#3e3b53">
-				<RadioButton Content="Home"
+						Background="#D3D3D3">
+                <RadioButton x:Name="Main"
 							 Height="50"
-							 Foreground="White"
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"
 							 IsChecked="True"
 							 Command="{Binding HomeViewCommand}"/>
 
-				<RadioButton Content="Options"
+                <RadioButton x:Name="Settings"
 							 Height="50"
-							 Foreground="White"
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"
 							 Command="{Binding OptionsViewCommand}"/>
 
-				<RadioButton Content="Statistics"
+                <RadioButton x:Name="Statistics"
 							 Height="50"
-							 Foreground="White"
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"/>
-			</StackPanel>
+            </StackPanel>
 
-			<ContentControl Grid.Row="1"
+            <ContentControl Grid.Row="1"
 							Grid.Column="1"
 							Margin="10"
 							Content="{Binding CurrentView}"/>
-		</Grid>
-	</Border>
+        </Grid>
+    </Border>
 </Window>

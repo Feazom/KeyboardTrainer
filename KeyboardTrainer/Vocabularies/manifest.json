@@ -1,0 +1,12 @@
+{
+    "Names": [
+        {
+            "Name": "Russian",
+            "FileName": "rus.txt"
+        },
+        {
+            "Name": "English",
+            "FileName": "eng.txt"
+        }
+    ]
+}

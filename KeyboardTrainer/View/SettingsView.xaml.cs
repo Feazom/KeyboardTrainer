@@ -5,9 +5,9 @@ namespace KeyboardTrainer.View
 	/// <summary>
 	/// Логика взаимодействия для OptionsView.xaml
 	/// </summary>
-	public partial class OptionsView : UserControl
+	public partial class SettingsView : UserControl
 	{
-		public OptionsView()
+		public SettingsView()
 		{
 			InitializeComponent();
 		}
