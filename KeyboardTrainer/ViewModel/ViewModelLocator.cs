@@ -34,11 +34,13 @@ namespace KeyboardTrainer.ViewModel
 			SimpleIoc.Default.Register<MainViewModel>();
 			SimpleIoc.Default.Register<HomeViewModel>();
 			SimpleIoc.Default.Register<SettingsViewModel>();
+			SimpleIoc.Default.Register<StatisticViewModel>();
 		}
 
 		public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
 		public HomeViewModel Home => ServiceLocator.Current.GetInstance<HomeViewModel>();
 		public SettingsViewModel Settings => ServiceLocator.Current.GetInstance<SettingsViewModel>();
+		public StatisticViewModel Statistic => ServiceLocator.Current.GetInstance<StatisticViewModel>();
 
 		public static T GetViewModel<T>() where T : ViewModelBase
 		{
@@ -50,6 +52,7 @@ namespace KeyboardTrainer.ViewModel
 			SimpleIoc.Default.Unregister<MainViewModel>();
 			SimpleIoc.Default.Unregister<HomeViewModel>();
 			SimpleIoc.Default.Unregister<SettingsViewModel>();
+			SimpleIoc.Default.Unregister<StatisticViewModel>();
 		}
 	}
 }

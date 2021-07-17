@@ -95,12 +95,13 @@
 							 Height="50"
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"
-							 Command="{Binding OptionsViewCommand}"/>
+							 Command="{Binding SettingsViewCommand}"/>
 
                 <RadioButton x:Name="Статистика"
 							 Height="50"
 							 FontSize="14"
-							 Style="{StaticResource MenuButton}"/>
+							 Style="{StaticResource MenuButton}"
+							 Command="{Binding StatisticViewCommand}"/>
             </StackPanel>
 
             <ContentControl Grid.Row="1"

@@ -12,11 +12,26 @@ namespace KeyboardTrainer.ViewModel
 {
 	public class HomeViewModel : ViewModelBase
 	{
-		#region properties
+		public HomeViewModel()
+		{
+			_errorsFraction = new Fraction();
+			_timer = new DispatcherTimer();
+			_timer.Interval = new TimeSpan(0, 0, 1);
+			_timer.Tick += OnTick;
 
-		public RelayCommand<TextCompositionEventArgs> TextInputCommand { get; set; }
-		public RelayCommand LoadedCommand { get; set; }
-		public RelayCommand SaveResultCommand { get; set; }
+			_typedText = new StringBuilder();
+			_nextText = new StringBuilder();
+			_stopwatch = new Stopwatch();
+
+			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(TextInput);
+			LoadedCommand = new RelayCommand(Reset);
+			SaveResultCommand = new RelayCommand(SaveResult);
+		}
+
+		#region Properties
+		public RelayCommand<TextCompositionEventArgs> TextInputCommand { get; }
+		public RelayCommand LoadedCommand { get; }
+		public RelayCommand SaveResultCommand { get; }
 
 		public string NextText
 		{
@@ -85,11 +100,11 @@ namespace KeyboardTrainer.ViewModel
 				RaisePropertyChanged(nameof(ResultVisibility));
 			}
 		}
-
 		#endregion
 
 		private readonly StringBuilder _typedText;
 		private readonly StringBuilder _nextText;
+		private string _currentVocabulary;
 		private int _typedKey = 0;
 		private int _errorsCount = 0;
 		private Fraction _errorsFraction;
@@ -97,23 +112,6 @@ namespace KeyboardTrainer.ViewModel
 		private TimeSpan _time = new TimeSpan(1);
 		private readonly Stopwatch _stopwatch;
 		private Visibility _resultVisibility = Visibility.Hidden;
-
-		public HomeViewModel()
-		{
-			_errorsFraction = new Fraction();
-			_timer = new DispatcherTimer();
-			_timer.Interval = new TimeSpan(0, 0, 1);
-			_timer.Tick += OnTick;
-
-			_typedText = new StringBuilder();
-			_nextText = new StringBuilder();
-			_stopwatch = new Stopwatch();
-			_ = Vocabularies.Instance;
-
-			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(TextInput);
-			LoadedCommand = new RelayCommand(Reset);
-			SaveResultCommand = new RelayCommand(SaveResult);
-		}
 
 		private void Reset()
 		{
@@ -126,6 +124,7 @@ namespace KeyboardTrainer.ViewModel
 			Time = TimeSpan.Zero;
 			TypedText = "";
 			NextText = Vocabularies.Instance.GetContent(5, true);
+			_currentVocabulary = Vocabularies.Instance.Current.Name;
 		}
 
 		private void OnTick(object sender, EventArgs e)
@@ -179,7 +178,7 @@ namespace KeyboardTrainer.ViewModel
 		private void SaveResult()
 		{
 			var statistic = new Statistic();
-			statistic.Add(new Result(CharPerMinute, ErrorsPercent, Time, DateTimeOffset.Now));
+			statistic.Add(new Result(_currentVocabulary, CharPerMinute, ErrorsPercent, Time, DateTimeOffset.Now));
 			statistic.Save();
 
 			Reset();

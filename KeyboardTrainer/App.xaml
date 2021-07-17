@@ -26,6 +26,9 @@
             <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
                 <view:SettingsView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:StatisticViewModel}">
+                <view:StatisticView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

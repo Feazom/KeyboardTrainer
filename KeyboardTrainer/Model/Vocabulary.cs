@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text.Json;
-
-namespace KeyboardTrainer.Model
+﻿namespace KeyboardTrainer.Model
 {
 	public class Vocabulary
 	{

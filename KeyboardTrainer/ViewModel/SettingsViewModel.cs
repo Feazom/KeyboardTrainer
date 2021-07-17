@@ -8,7 +8,16 @@ namespace KeyboardTrainer.ViewModel
 {
 	public class SettingsViewModel : ViewModelBase
 	{
-		public RelayCommand SaveSettingCommand { get; set; }
+		public SettingsViewModel()
+		{
+			VocabularyList = Vocabularies.Instance.Collection.Select(n => n.Name).ToList();
+			SelectedVocabulary = Vocabularies.Instance.Current.Name;
+
+			SaveSettingCommand = new RelayCommand(SaveSetting);
+		}
+
+		#region Properties
+		public RelayCommand SaveSettingCommand { get; }
 
 		public List<string> VocabularyList { get; }
 
@@ -20,17 +29,10 @@ namespace KeyboardTrainer.ViewModel
 				_selectedVocabulary = value;
 				Vocabularies.Instance.SetCurrentTo(_selectedVocabulary);
 			}
-		}
+		} 
+		#endregion
 
 		private string _selectedVocabulary;
-
-		public SettingsViewModel()
-		{
-			VocabularyList = Vocabularies.Instance.Collection.Select(n => n.Name).ToList();
-			SelectedVocabulary = Vocabularies.Instance.Current.Name;
-
-			SaveSettingCommand = new RelayCommand(SaveSetting);
-		}
 
 		private void SaveSetting()
 		{

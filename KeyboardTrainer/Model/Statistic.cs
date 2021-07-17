@@ -6,9 +6,9 @@ namespace KeyboardTrainer.Model
 {
 	public class Statistic
 	{
-		public List<Result> Data { get; set; }
+		public List<Result> Data { get; private set; }
 
-		private const string _statsFileName = "stats.json";
+		private const string StatsFileName = "stats.json";
 
 		public Statistic()
 		{
@@ -29,15 +29,22 @@ namespace KeyboardTrainer.Model
 
 		private void SerializeData()
 		{
-			var jsonString = JsonSerializer.Serialize(Data);
-			File.WriteAllText(_statsFileName, jsonString);
+			var jsonString = JsonSerializer.Serialize(
+				Data,
+				new JsonSerializerOptions { WriteIndented = true });
+
+			File.WriteAllText(StatsFileName, jsonString);
 		}
 
 		private void DeserializeData()
 		{
 			try
 			{
-				var jsonString = File.ReadAllText(_statsFileName);
+				if (!File.Exists(StatsFileName))
+				{
+					File.Create(StatsFileName);
+				}
+				var jsonString = File.ReadAllText(StatsFileName);
 				Data = JsonSerializer.Deserialize<List<Result>>(jsonString);
 			}
 			catch (JsonException)
