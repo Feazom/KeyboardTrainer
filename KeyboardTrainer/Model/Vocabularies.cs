@@ -6,13 +6,30 @@ using System.Text.Json;
 
 namespace KeyboardTrainer.Model
 {
-	class Vocabularies
+	public class Vocabularies
 	{
+		public static Vocabularies Instance
+		{
+			get
+			{
+				if (_instance == null)
+				{
+					lock (_syncRoot)
+					{
+						if (_instance == null)
+						{
+							_instance = new Vocabularies();
+						}
+					}
+				}
+				return _instance;
+			}
+		}
+
 		public List<Vocabulary> Collection { get; private set; }
+		public Vocabulary Current { get; private set; }
 
-		private Vocabulary _currentVocabulary;
 		private static Vocabularies _instance;
-
 		private static readonly object _syncRoot = new Object();
 		private static readonly string VocabularyRoot =
 			Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Vocabularies");
@@ -21,33 +38,39 @@ namespace KeyboardTrainer.Model
 		{
 			Collection = new List<Vocabulary>();
 			FillVocabularyList();
-			_currentVocabulary = Collection.FirstOrDefault();
+
+			var settings = Settings.Load();
+			if (settings.IsEmpty)
+			{
+				Current = Collection.FirstOrDefault();
+			}
+			else
+			{
+				SetCurrentTo(settings.SelectedVocabulary);
+			}
 		}
 
-		public static Vocabularies GetInstance()
+		public void SetCurrentTo(string name)
 		{
-			if (_instance == null)
+			var current = Collection.Where(n => n.Name == name);
+
+			if (current.Count() != 1)
 			{
-				lock (_syncRoot)
-				{
-					if (_instance == null)
-					{
-						_instance = new Vocabularies();
-					}
-				}
+				Current = Collection.FirstOrDefault();
 			}
-			return _instance;
+
+			Current = current.First();
 		}
 
 		public string GetContent(int count, bool allowCapital = false)
 		{
-			if (_currentVocabulary == default(Vocabulary))
+			if (Current == default(Vocabulary))
 			{
 				return null;
 			}
 
 			var random = new Random(DateTime.Now.Millisecond);
-			var words = _currentVocabulary.Content.Split(' ');
+			var words = Current.Content.Split(' ');
 			var resultSequence = new List<string>();
 
 			for (int i = 0; i < count; i++)

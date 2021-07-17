@@ -3,7 +3,6 @@ using GalaSoft.MvvmLight.CommandWpf;
 using KeyboardTrainer.Model;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
@@ -109,11 +108,24 @@ namespace KeyboardTrainer.ViewModel
 			_typedText = new StringBuilder();
 			_nextText = new StringBuilder();
 			_stopwatch = new Stopwatch();
-			Vocabularies.GetInstance();
+			_ = Vocabularies.Instance;
 
 			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(TextInput);
-			LoadedCommand = new RelayCommand(Load);
+			LoadedCommand = new RelayCommand(Reset);
 			SaveResultCommand = new RelayCommand(SaveResult);
+		}
+
+		private void Reset()
+		{
+			_errorsCount = 0;
+			_stopwatch.Reset();
+			_timer.Stop();
+			ErrorsFraction = new Fraction();
+			TypedKey = 0;
+
+			Time = TimeSpan.Zero;
+			TypedText = "";
+			NextText = Vocabularies.Instance.GetContent(5, true);
 		}
 
 		private void OnTick(object sender, EventArgs e)
@@ -156,19 +168,6 @@ namespace KeyboardTrainer.ViewModel
 			}
 		}
 
-		private void Load()
-		{
-			var vocabularies = Vocabularies.GetInstance();
-			_errorsCount = 0;
-			_stopwatch.Reset();
-			ErrorsFraction = new Fraction();
-			TypedKey = 0;
-
-			Time = TimeSpan.Zero;
-			TypedText = "";
-			NextText = vocabularies.GetContent(5, true);
-		}
-
 		private void TypingEnd()
 		{
 			_timer.Stop();
@@ -183,7 +182,7 @@ namespace KeyboardTrainer.ViewModel
 			statistic.Add(new Result(CharPerMinute, ErrorsPercent, Time, DateTimeOffset.Now));
 			statistic.Save();
 
-			Load();
+			Reset();
 			ResultVisibility = Visibility.Hidden;
 		}
 

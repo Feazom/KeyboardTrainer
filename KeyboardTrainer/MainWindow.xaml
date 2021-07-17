@@ -84,20 +84,20 @@
 
             <StackPanel Grid.Row="1"
 						Background="#D3D3D3">
-                <RadioButton x:Name="Main"
+                <RadioButton x:Name="Главная"
 							 Height="50"
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"
 							 IsChecked="True"
 							 Command="{Binding HomeViewCommand}"/>
 
-                <RadioButton x:Name="Settings"
+                <RadioButton x:Name="Настройки"
 							 Height="50"
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"
 							 Command="{Binding OptionsViewCommand}"/>
 
-                <RadioButton x:Name="Statistics"
+                <RadioButton x:Name="Статистика"
 							 Height="50"
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"/>
