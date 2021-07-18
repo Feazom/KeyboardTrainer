@@ -115,6 +115,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Fraction.cs" />
+    <Compile Include="Model\Interval.cs" />
     <Compile Include="Model\Manifest.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\Statistic.cs" />

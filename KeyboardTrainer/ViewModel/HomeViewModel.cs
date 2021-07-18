@@ -123,7 +123,7 @@ namespace KeyboardTrainer.ViewModel
 
 			Time = TimeSpan.Zero;
 			TypedText = "";
-			NextText = Vocabularies.Instance.GetContent(5, true);
+			NextText = Vocabularies.Instance.GetContent(4, true);
 			_currentVocabulary = Vocabularies.Instance.Current.Name;
 		}
 
@@ -178,7 +178,14 @@ namespace KeyboardTrainer.ViewModel
 		private void SaveResult()
 		{
 			var statistic = new Statistic();
-			statistic.Add(new Result(_currentVocabulary, CharPerMinute, ErrorsPercent, Time, DateTimeOffset.Now));
+			statistic.Add(
+				new Result(
+					_currentVocabulary,
+					CharPerMinute,
+					ErrorsPercent,
+					Time.Ticks,
+					DateTimeOffset.Now));
+
 			statistic.Save();
 
 			Reset();

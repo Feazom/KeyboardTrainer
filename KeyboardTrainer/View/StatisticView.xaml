@@ -10,12 +10,104 @@
              mc:Ignorable="d" 
              d:DesignHeight="540" d:DesignWidth="850">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">
                 <cmd:EventToCommand Command="{Binding LoadedCommand}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-        <oxy:PlotView Model="{Binding Model}"/>
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Временной отрезок:"
+                Height="30"
+                Width="160"
+                FontSize="16"
+                HorizontalAlignment="Left"
+                Margin="100,0,0,0"/>
+            <ComboBox Height="30"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                VerticalContentAlignment="Center"
+                Width="100"
+                Margin="0,0,0,0"
+                ItemsSource="{Binding IntervalList}"
+                SelectedItem="{Binding SelectedInterval}"/>
+
+            <Label Content="Словарь:"
+                Height="30"
+                Width="80"
+                FontSize="16"
+                HorizontalAlignment="Left"
+                Margin="210,0,0,0"/>
+            <ComboBox Height="30"
+                HorizontalAlignment="Left"
+                FontSize="16"
+                VerticalContentAlignment="Center"
+                Width="100"
+                Margin="0,0,0,0"
+                ItemsSource="{Binding VocabularyList}"
+                SelectedItem="{Binding SelectedVocabulary}"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1"
+            VerticalScrollBarVisibility="Visible">
+            <StackPanel>
+                <oxy:Plot Title="Количество клавиш в минуту"
+                    Height="430"
+                    Background="#F0F0F0">
+                    <oxy:Plot.Axes>
+                        <oxy:DateTimeAxis Position="Bottom"
+                            Title="Время установки результата"
+                            AbsoluteMaximum="{Binding MaxTimeInDouble}"
+                            AbsoluteMinimum="{Binding MinTimeInDouble}"
+                            Maximum="{Binding MaxTimeInDouble}"
+                            Minimum="{Binding MinTimeInDouble}"
+                            IntervalType="{Binding IntervalType, Mode=OneWay}"/>
+
+                        <oxy:LinearAxis Position="Left"
+                            Title="Клавиш в минуту"
+                            AbsoluteMinimum="0"
+                            Maximum="{Binding MaxCharPerMinute}"
+                            AbsoluteMaximum="1500"
+                            IsZoomEnabled="False"/>
+                    </oxy:Plot.Axes>
+
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding PointsCharPerMinute}"
+                            MarkerType="Circle"
+                            MarkerStroke="DarkGreen"
+                            CanTrackerInterpolatePoints="False"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+                <oxy:Plot Title="Ошибки"
+                    Height="430"
+                    Background="#F0F0F0">
+                    <oxy:Plot.Axes>
+                        <oxy:DateTimeAxis Position="Bottom"
+                            Title="Время установки результата"
+                            AbsoluteMaximum="{Binding MaxTimeInDouble}"
+                            AbsoluteMinimum="{Binding MinTimeInDouble}"
+                            Maximum="{Binding MaxTimeInDouble}"
+                            Minimum="{Binding MinTimeInDouble}"
+                            IntervalType="{Binding IntervalType}"/>
+
+                        <oxy:LinearAxis Position="Left"
+                            Title="Клавиш в минуту"
+                            AbsoluteMinimum="0"
+                            AbsoluteMaximum="100"
+                            IsZoomEnabled="False"/>
+                    </oxy:Plot.Axes>
+
+                    <oxy:Plot.Series>
+                        <oxy:LineSeries ItemsSource="{Binding PointsErrors}"
+                            MarkerType="Circle"
+                            CanTrackerInterpolatePoints="False"/>
+                    </oxy:Plot.Series>
+                </oxy:Plot>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

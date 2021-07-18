@@ -11,12 +11,12 @@ namespace KeyboardTrainer.Model
 		public long DurationTicks { get; set; }
 		public DateTimeOffset Time { get; set; }
 
-		public Result(string vocabulary, int charPerMinute, double errorsPercent, TimeSpan duration, DateTimeOffset time)
+		public Result(string vocabulary, int charPerMinute, double errorsPercent, long durationTicks, DateTimeOffset time)
 		{
 			Vocabulary = vocabulary;
 			CharPerMinute = charPerMinute;
 			ErrorsPercent = errorsPercent;
-			DurationTicks = duration.Ticks;
+			DurationTicks = durationTicks;
 			Time = time;
 		}
 	}
