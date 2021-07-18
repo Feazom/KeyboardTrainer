@@ -217,7 +217,6 @@
     <Resource Include="icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="stats.json" />
     <None Include="Vocabularies.json" />
     <None Include="Vocabularies\manifest.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
