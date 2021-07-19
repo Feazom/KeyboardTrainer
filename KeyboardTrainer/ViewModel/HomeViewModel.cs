@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using KeyboardTrainer.Core;
 using KeyboardTrainer.Model;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Windows;
@@ -18,20 +20,23 @@ namespace KeyboardTrainer.ViewModel
 			_timer = new DispatcherTimer();
 			_timer.Interval = new TimeSpan(0, 0, 1);
 			_timer.Tick += OnTick;
+			InputLanguageManager.Current.InputLanguageChanged += LanguageChanged;
 
-			_typedText = new StringBuilder();
+			_typedText = new StringBuilder(17);
 			_nextText = new StringBuilder();
 			_stopwatch = new Stopwatch();
 
 			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(TextInput);
 			LoadedCommand = new RelayCommand(Reset);
 			SaveResultCommand = new RelayCommand(SaveResult);
+			KeyDownCommand = new RelayCommand<KeyEventArgs>(KeyDown);
 		}
 
 		#region Properties
 		public RelayCommand<TextCompositionEventArgs> TextInputCommand { get; }
 		public RelayCommand LoadedCommand { get; }
 		public RelayCommand SaveResultCommand { get; }
+		public RelayCommand<KeyEventArgs> KeyDownCommand { get; }
 
 		public string NextText
 		{
@@ -100,6 +105,16 @@ namespace KeyboardTrainer.ViewModel
 				RaisePropertyChanged(nameof(ResultVisibility));
 			}
 		}
+
+		public string CurrentLanguage
+		{
+			get => _currentLanguage;
+			set
+			{
+				_currentLanguage = value;
+				RaisePropertyChanged(nameof(CurrentLanguage));
+			}
+		}
 		#endregion
 
 		private readonly StringBuilder _typedText;
@@ -112,6 +127,7 @@ namespace KeyboardTrainer.ViewModel
 		private TimeSpan _time = new TimeSpan(1);
 		private readonly Stopwatch _stopwatch;
 		private Visibility _resultVisibility = Visibility.Hidden;
+		private string _currentLanguage;
 
 		private void Reset()
 		{
@@ -131,6 +147,17 @@ namespace KeyboardTrainer.ViewModel
 		{
 			Time = _stopwatch.Elapsed;
 			RaisePropertyChanged(nameof(CharPerMinute));
+		}
+
+		private void LanguageChanged(object sender, InputLanguageEventArgs e)
+		{
+			CurrentLanguage = e.NewLanguage.Name;
+		}
+
+		private void KeyDown(KeyEventArgs args)
+		{
+			var a = KeyboardConvert.GetCharFromKey(args.Key);
+			var b = InputLanguageManager.Current;
 		}
 
 		private void TextInput(TextCompositionEventArgs args)

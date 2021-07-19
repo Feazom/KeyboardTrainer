@@ -3,7 +3,6 @@ using GalaSoft.MvvmLight.CommandWpf;
 using KeyboardTrainer.Model;
 using OxyPlot;
 using OxyPlot.Axes;
-using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +17,7 @@ namespace KeyboardTrainer.ViewModel
 			{
 				{ "Час" , new Interval(TimeSpan.FromHours(1), DateTimeIntervalType.Seconds)},
 				{ "Сутки" , new Interval(TimeSpan.FromHours(24), DateTimeIntervalType.Minutes)},
+				{ "Неделя" , new Interval(TimeSpan.FromDays(7), DateTimeIntervalType.Auto)},
 				{ "Месяц" , new Interval(TimeSpan.FromDays(30), DateTimeIntervalType.Days)}
 			};
 			SelectedInterval = _intervals.Keys.FirstOrDefault();

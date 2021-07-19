@@ -6,6 +6,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	xmlns:vm="clr-namespace:KeyboardTrainer.ViewModel" 
 	xmlns:view="clr-namespace:KeyboardTrainer.View" 
+    xmlns:model="clr-namespace:KeyboardTrainer.Model"
 	d1p1:Ignorable="d" 
 	xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
 
@@ -17,6 +18,7 @@
                 <ResourceDictionary Source="Styles/MinimizeButton.xaml" />
                 <ResourceDictionary Source="Styles/TextBox.xaml" />
                 <ResourceDictionary Source="Styles/BorderBox.xaml"/>
+                <ResourceDictionary Source="Styles/Keys.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
 

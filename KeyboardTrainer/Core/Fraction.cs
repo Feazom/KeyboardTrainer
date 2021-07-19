@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KeyboardTrainer
+namespace KeyboardTrainer.Core
 {
 	public class Fraction
 	{

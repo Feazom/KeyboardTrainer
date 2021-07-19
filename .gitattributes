@@ -1,63 +1,111 @@
-###############################################################################
-# Set default behavior to automatically normalize line endings.
-###############################################################################
-* text=auto
+<Border x:Name="Keyboard"
+			Height="270"
+			Width="800"
+			Grid.Row="2"
+			Grid.ColumnSpan="3">
 
-###############################################################################
-# Set default behavior for command prompt diff.
-#
-# This is need for earlier builds of msysgit that does not have it on by
-# default for csharp files.
-# Note: This is only used by command line
-###############################################################################
-#*.cs     diff=csharp
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
 
-###############################################################################
-# Set the merge driver for project and solution files
-#
-# Merging from the command prompt will add diff markers to the files if there
-# are conflicts (Merging from VS is not affected by the settings below, in VS
-# the diff markers are never inserted). Diff markers may cause the following 
-# file extensions to fail to load in VS. An alternative would be to treat
-# these files as binary and thus will always conflict and require user
-# intervention with every merge. To do so, just uncomment the entries below
-###############################################################################
-#*.sln       merge=binary
-#*.csproj    merge=binary
-#*.vbproj    merge=binary
-#*.vcxproj   merge=binary
-#*.vcproj    merge=binary
-#*.dbproj    merge=binary
-#*.fsproj    merge=binary
-#*.lsproj    merge=binary
-#*.wixproj   merge=binary
-#*.modelproj merge=binary
-#*.sqlproj   merge=binary
-#*.wwaproj   merge=binary
+                <StackPanel Grid.Row="0"
+                    Width="800"
+                    Orientation="Horizontal">
 
-###############################################################################
-# behavior for image files
-#
-# image files are treated as binary by default.
-###############################################################################
-#*.jpg   binary
-#*.png   binary
-#*.gif   binary
+                    <Label Content="`" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Content="1" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Content="2" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Content="3" Style="{StaticResource LeftRingKey}"/>
+                    <Label Content="4" Style="{StaticResource LeftMiddleKey}"/>
+                    <Label Content="5" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Content="6" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Content="7" Style="{StaticResource RightPointerKey}"/>
+                    <Label Content="8" Style="{StaticResource RightPointerKey}"/>
+                    <Label Content="9" Style="{StaticResource RightMiddleKey}"/>
+                    <Label Content="0" Style="{StaticResource RightRingKey}"/>
+                    <Label Content="-" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Content="=" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Content="←" Style="{StaticResource Backspace}"/>
+                </StackPanel>
 
-###############################################################################
-# diff behavior for common document formats
-# 
-# Convert binary document formats to text before diffing them. This feature
-# is only available from the command line. Turn it on by uncommenting the 
-# entries below.
-###############################################################################
-#*.doc   diff=astextplain
-#*.DOC   diff=astextplain
-#*.docx  diff=astextplain
-#*.DOCX  diff=astextplain
-#*.dot   diff=astextplain
-#*.DOT   diff=astextplain
-#*.pdf   diff=astextplain
-#*.PDF   diff=astextplain
-#*.rtf   diff=astextplain
-#*.RTF   diff=astextplain
+                <StackPanel Grid.Row="1"
+                    Width="800"
+                    Orientation="Horizontal">
+
+                    <Label Content="TAB" Style="{StaticResource Tab}"/>
+                    <Label Tag="Q" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Content="W" Style="{StaticResource LeftRingKey}"/>
+                    <Label Content="E" Style="{StaticResource LeftMiddleKey}"/>
+                    <Label Content="R" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Content="T" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Content="Y" Style="{StaticResource RightPointerKey}"/>
+                    <Label Content="U" Style="{StaticResource RightPointerKey}"/>
+                    <Label Content="I" Style="{StaticResource RightMiddleKey}"/>
+                    <Label Content="O" Style="{StaticResource RightRingKey}"/>
+                    <Label Content="P" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Style="{StaticResource RightPinkyKey}">{</Label>
+                    <Label Style="{StaticResource RightPinkyKey}">}</Label>
+                    <Label Content="\" Style="{StaticResource RightPinkyKey}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2"
+                    Width="800"
+                    Orientation="Horizontal">
+
+                    <Label Content="CAPS" Style="{StaticResource Caps}"/>
+                    <Label Content="A" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Content="S" Style="{StaticResource LeftRingKey}"/>
+                    <Label Content="D" Style="{StaticResource LeftMiddleKey}"/>
+                    <Label Content="F" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Content="G" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Content="H" Style="{StaticResource RightPointerKey}"/>
+                    <Label Content="J" Style="{StaticResource RightPointerKey}"/>
+                    <Label Content="K" Style="{StaticResource RightMiddleKey}"/>
+                    <Label Content="L" Style="{StaticResource RightRingKey}"/>
+                    <Label Content=";" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Content="'" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Content="ENTER" Style="{StaticResource Enter}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="3"
+                    Width="800"
+                    Orientation="Horizontal">
+
+                    <Label Content="SHIFT" Style="{StaticResource LeftShift}"/>
+                    <Label Content="Z" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Content="X" Style="{StaticResource LeftRingKey}"/>
+                    <Label Content="C" Style="{StaticResource LeftMiddleKey}"/>
+                    <Label Content="V" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Content="B" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Content="N" Style="{StaticResource RightPointerKey}"/>
+                    <Label Content="M" Style="{StaticResource RightPointerKey}"/>
+                    <Label Content="," Style="{StaticResource RightMiddleKey}"/>
+                    <Label Content="." Style="{StaticResource RightRingKey}"/>
+                    <Label Content="/" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Content="SHIFT" Style="{StaticResource RightShift}"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4"
+                    Width="800"
+                    Orientation="Horizontal">
+
+                    <Label Content="CTRL" Style="{StaticResource Empty}"/>
+                    <Label Style="{StaticResource Empty}">
+                        <Image Source="/Images/windows.png" Margin="7"/>
+                    </Label>
+                    <Label Content="ALT" Style="{StaticResource Empty}"/>
+                    <Label Content="SPACE" Style="{StaticResource Space}"/>
+                    <Label Content="ALT" Style="{StaticResource Empty}"/>
+                    <Label Style="{StaticResource Empty}">
+                        <Image Source="/Images/menu.png" Margin="7"/>
+                    </Label>
+                    <Label Content="FN" Style="{StaticResource Empty}"/>
+                    <Label Content="CTRL" Style="{StaticResource Empty}"/>
+                </StackPanel>
+            </Grid>
+        </Border>

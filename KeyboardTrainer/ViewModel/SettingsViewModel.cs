@@ -29,7 +29,7 @@ namespace KeyboardTrainer.ViewModel
 				_selectedVocabulary = value;
 				Vocabularies.Instance.SetCurrentTo(_selectedVocabulary);
 			}
-		} 
+		}
 		#endregion
 
 		private string _selectedVocabulary;

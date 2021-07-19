@@ -1,0 +1,144 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:model="clr-namespace:KeyboardTrainer.Model"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="BaseKey" 
+        TargetType="{x:Type Label}">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border Margin="4"
+                            Width="auto"
+                            MinWidth="46"
+                            Height="46"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Black"
+                            BorderThickness="2"
+                            CornerRadius="5">
+
+                            <Label FontSize="16"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="LeftPinkyKey"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Orange"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="LeftRingKey"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Yellow"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="LeftMiddleKey"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Green"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="LeftPointerKey"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Lime"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="RightPointerKey"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+        <Style.Setters>
+            <Setter Property="Background" Value="SteelBlue"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="RightMiddleKey"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Purple"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="RightRingKey"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Pink"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="RightPinkyKey"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+        <Style.Setters>
+            <Setter Property="Background" Value="Red"/>
+        </Style.Setters>
+    </Style>
+
+    <Style x:Key="Backspace"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource RightPinkyKey}">
+        <Setter Property="Width" Value="74.31"/>
+    </Style>
+
+    <Style x:Key="Tab"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource LeftPinkyKey}">
+        <Setter Property="Width" Value="74.31"/>
+    </Style>
+
+    <Style x:Key="Caps"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource LeftPinkyKey}">
+        <Setter Property="Width" Value="94"/>
+    </Style>
+
+    <Style x:Key="Enter"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource RightPinkyKey}">
+        <Setter Property="Width" Value="88.46"/>
+    </Style>
+
+    <Style x:Key="LeftShift"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource LeftPinkyKey}">
+        <Setter Property="Width" Value="116.77"/>
+    </Style>
+
+    <Style x:Key="RightShift"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource RightPinkyKey}">
+        <Setter Property="Width" Value="121"/>
+    </Style>
+
+    <Style x:Key="Space"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+        <Setter Property="Width" Value="300"/>
+        <Setter Property="Background" Value="LightSlateGray"/>
+    </Style>
+
+    <Style x:Key="Empty"
+        TargetType="{x:Type Label}"
+        BasedOn="{StaticResource BaseKey}">
+
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Width" Value="68.5"/>
+    </Style>
+</ResourceDictionary>
