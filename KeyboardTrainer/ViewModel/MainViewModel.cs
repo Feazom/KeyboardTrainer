@@ -62,9 +62,9 @@ namespace KeyboardTrainer.ViewModel
 			}
 			var capsToggled = Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled ||
 				Keyboard.GetKeyStates(Key.CapsLock) == (KeyStates.Toggled | KeyStates.Down);
-			var shiftDown = args.Key == Key.LeftShift || args.Key == Key.RightShift;
+			var shiftToggled = args.KeyboardDevice.Modifiers == ModifierKeys.Shift;
 
-			_homeVm.IsUpperKeys = capsToggled ^ shiftDown;
+			_homeVm.IsUpperKeys = capsToggled ^ shiftToggled;
 		}
 
 		private void KeyUp(KeyEventArgs args)
@@ -74,9 +74,9 @@ namespace KeyboardTrainer.ViewModel
 				return;
 			}
 			var capsToggled = Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled;
-			var shiftUp = args.Key == Key.LeftShift || args.Key == Key.RightShift;
+			var shiftToggled = args.KeyboardDevice.Modifiers == ModifierKeys.Shift;
 
-			_homeVm.IsUpperKeys = (capsToggled && shiftUp) || (capsToggled && !shiftUp);
+			_homeVm.IsUpperKeys = capsToggled ^ shiftToggled;
 		}
 
 		private void ChangeViewTo<T>() where T : ViewModelBase

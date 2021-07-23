@@ -27,16 +27,16 @@ namespace KeyboardTrainer.ViewModel
 			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(TextInput);
 			LoadedCommand = new RelayCommand(Reset);
 			SaveResultCommand = new RelayCommand(SaveResult);
-			KeyDownCommand = new RelayCommand<KeyEventArgs>(KeyDown);
-			KeyUpCommand = new RelayCommand<KeyEventArgs>(KeyUp);
+			//KeyDownCommand = new RelayCommand<KeyEventArgs>(KeyDown);
+			//KeyUpCommand = new RelayCommand<KeyEventArgs>(KeyUp);
 		}
 
 		#region Properties
 		public RelayCommand<TextCompositionEventArgs> TextInputCommand { get; }
 		public RelayCommand LoadedCommand { get; }
 		public RelayCommand SaveResultCommand { get; }
-		public RelayCommand<KeyEventArgs> KeyDownCommand { get; }
-		public RelayCommand<KeyEventArgs> KeyUpCommand { get; }
+		//public RelayCommand<KeyEventArgs> KeyDownCommand { get; }
+		//public RelayCommand<KeyEventArgs> KeyUpCommand { get; }
 
 		public string NextText
 		{
@@ -128,6 +128,7 @@ namespace KeyboardTrainer.ViewModel
 		}
 		#endregion
 
+		private string _test;
 		private readonly StringBuilder _typedText;
 		private readonly StringBuilder _nextText;
 		private string _currentVocabulary;
@@ -168,15 +169,15 @@ namespace KeyboardTrainer.ViewModel
 			RaisePropertyChanged(nameof(RequiredKey));
 		}
 
-		private void KeyDown(KeyEventArgs args)
-		{
+		//private void KeyDown(KeyEventArgs args)
+		//{
 
-		}
+		//}
 
-		private void KeyUp(KeyEventArgs args)
-		{
+		//private void KeyUp(KeyEventArgs args)
+		//{
 
-		}
+		//}
 
 		private void TextInput(TextCompositionEventArgs args)
 		{

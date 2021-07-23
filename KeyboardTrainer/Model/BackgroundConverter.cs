@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KeyboardTrainer.ViewModel;
+using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Data;
@@ -12,18 +13,27 @@ namespace KeyboardTrainer.Model
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
 			var tag = (string)values[0];
-
-			var charisUpper = char.IsUpper((char)values[1]);
-			var keyChar = char.ToLower((char)values[1]);
-			var keyCode = VkKeyScan(keyChar);
-			var key = KeyInterop.KeyFromVirtualKey(keyCode);
-
 			var curentBackground = (SolidColorBrush)values[2];
 
-			var keyboardIsUpper = (bool)values[3];
+			var requiredKeyChar = char.ToLower((char)values[1]);
+			var requiredKeyCode = VkKeyScan(requiredKeyChar);
+			var requiredKey = KeyInterop.KeyFromVirtualKey(requiredKeyCode);
 
-			if (tag.Equals(key.ToString(), StringComparison.CurrentCultureIgnoreCase) && keyboardIsUpper == charisUpper)
+			var isShift = tag == "SHIFT" && requiredKey != Key.Space;
+			var isCaps = tag == "CAPS" && requiredKey != Key.Space;
+			var isDifferentCase = char.IsUpper((char)values[1]) != (bool)values[3] && requiredKey != Key.Space;
+			var isRightKey = tag.Equals(requiredKey.ToString(), StringComparison.CurrentCultureIgnoreCase);
+
+			if ((isRightKey && !isDifferentCase) || (isDifferentCase && (isShift || isCaps)))
 			{
+				if (isCaps)
+				{
+					return Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled ||
+						Keyboard.GetKeyStates(Key.CapsLock) == (KeyStates.Toggled | KeyStates.Down)
+						? new SolidColorBrush(ChangeColorBrightness(curentBackground.Color, -0.7f))
+						: curentBackground;
+				}
+
 				return new SolidColorBrush(ChangeColorBrightness(curentBackground.Color, -0.7f));
 			}
 

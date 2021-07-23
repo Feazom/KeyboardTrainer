@@ -31,11 +31,6 @@
             <i:EventTrigger EventName="Loaded">
                 <cmd:EventToCommand Command="{Binding LoadedCommand}"/>
             </i:EventTrigger>
-
-            <i:EventTrigger EventName="KeyDown">
-                <cmd:EventToCommand Command="{Binding KeyDownCommand}"
-                    PassEventArgsToCommand="True"/>
-            </i:EventTrigger>
         </i:Interaction.Triggers>
 
         <Border Visibility="{Binding ResultVisibility}"
