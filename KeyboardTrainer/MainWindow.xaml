@@ -5,6 +5,8 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+		xmlns:local="clr-namespace:KeyboardTrainer.View"
+		xmlns:cmd="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
 		DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
 		Title="Keyboard trainer" Height="600" Width="1000" 
@@ -15,6 +17,20 @@
 
     <Border Background="#EAEAEA"
 			CornerRadius="10">
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="KeyDown">
+                <cmd:EventToCommand Command="{Binding KeyDownCommand}"
+                    PassEventArgsToCommand="True"/>
+            </i:EventTrigger>
+
+            <i:EventTrigger EventName="KeyUp">
+                <cmd:EventToCommand Command="{Binding KeyUpCommand}"
+                    PassEventArgsToCommand="True"/>
+
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
@@ -105,7 +121,9 @@
 
             <ContentControl Grid.Row="1"
 							Grid.Column="1"
+							local:FocusExtension.IsFocused="True"
 							Margin="10"
+							x:Name="Content"
 							Content="{Binding CurrentView}"/>
         </Grid>
     </Border>

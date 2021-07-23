@@ -28,6 +28,7 @@ namespace KeyboardTrainer.ViewModel
 			{
 				_selectedVocabulary = value;
 				Vocabularies.Instance.SetCurrentTo(_selectedVocabulary);
+				ViewModelLocator.GetViewModel<HomeViewModel>().Reset();
 			}
 		}
 		#endregion

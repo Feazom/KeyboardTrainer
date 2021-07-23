@@ -117,7 +117,9 @@
     <Compile Include="Core\Fraction.cs" />
     <Compile Include="Core\Interval.cs" />
     <Compile Include="Core\KeyboardConvert.cs" />
-    <Compile Include="Model\KeyConverter.cs" />
+    <Compile Include="Model\BackgroundConverter.cs" />
+    <Compile Include="Model\ForegroundConverter.cs" />
+    <Compile Include="Model\KeysConverter.cs" />
     <Compile Include="Model\Manifest.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\Statistic.cs" />
@@ -129,6 +131,8 @@
     <Compile Include="ViewModel\SettingsViewModel.cs" />
     <Compile Include="ViewModel\StatisticViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\AutoForegroundExtension.cs" />
+    <Compile Include="View\FocusExtension.cs" />
     <Compile Include="View\HomeView.xaml.cs">
       <DependentUpon>HomeView.xaml</DependentUpon>
     </Compile>

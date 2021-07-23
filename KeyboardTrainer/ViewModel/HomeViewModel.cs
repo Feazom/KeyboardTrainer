@@ -3,7 +3,6 @@ using GalaSoft.MvvmLight.CommandWpf;
 using KeyboardTrainer.Core;
 using KeyboardTrainer.Model;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Windows;
@@ -21,7 +20,6 @@ namespace KeyboardTrainer.ViewModel
 			_timer.Interval = new TimeSpan(0, 0, 1);
 			_timer.Tick += OnTick;
 			InputLanguageManager.Current.InputLanguageChanged += LanguageChanged;
-
 			_typedText = new StringBuilder(17);
 			_nextText = new StringBuilder();
 			_stopwatch = new Stopwatch();
@@ -30,6 +28,7 @@ namespace KeyboardTrainer.ViewModel
 			LoadedCommand = new RelayCommand(Reset);
 			SaveResultCommand = new RelayCommand(SaveResult);
 			KeyDownCommand = new RelayCommand<KeyEventArgs>(KeyDown);
+			KeyUpCommand = new RelayCommand<KeyEventArgs>(KeyUp);
 		}
 
 		#region Properties
@@ -37,6 +36,7 @@ namespace KeyboardTrainer.ViewModel
 		public RelayCommand LoadedCommand { get; }
 		public RelayCommand SaveResultCommand { get; }
 		public RelayCommand<KeyEventArgs> KeyDownCommand { get; }
+		public RelayCommand<KeyEventArgs> KeyUpCommand { get; }
 
 		public string NextText
 		{
@@ -45,6 +45,7 @@ namespace KeyboardTrainer.ViewModel
 			{
 				_nextText.Clear();
 				_nextText.Append(value);
+
 				RaisePropertyChanged(nameof(NextText));
 			}
 		}
@@ -106,13 +107,23 @@ namespace KeyboardTrainer.ViewModel
 			}
 		}
 
-		public string CurrentLanguage
+		public bool IsUpperKeys
 		{
-			get => _currentLanguage;
+			get => _isUpperKeys;
 			set
 			{
-				_currentLanguage = value;
-				RaisePropertyChanged(nameof(CurrentLanguage));
+				_isUpperKeys = value;
+				RaisePropertyChanged(nameof(IsUpperKeys));
+			}
+		}
+
+		public char RequiredKey
+		{
+			get => _requiredKey;
+			set
+			{
+				_requiredKey = value;
+				RaisePropertyChanged(nameof(RequiredKey));
 			}
 		}
 		#endregion
@@ -127,9 +138,10 @@ namespace KeyboardTrainer.ViewModel
 		private TimeSpan _time = new TimeSpan(1);
 		private readonly Stopwatch _stopwatch;
 		private Visibility _resultVisibility = Visibility.Hidden;
-		private string _currentLanguage;
+		private bool _isUpperKeys;
+		private char _requiredKey;
 
-		private void Reset()
+		public void Reset()
 		{
 			_errorsCount = 0;
 			_stopwatch.Reset();
@@ -139,7 +151,8 @@ namespace KeyboardTrainer.ViewModel
 
 			Time = TimeSpan.Zero;
 			TypedText = "";
-			NextText = Vocabularies.Instance.GetContent(4, true);
+			NextText = Vocabularies.Instance.GetContent(100, true);
+			RequiredKey = NextText[0];
 			_currentVocabulary = Vocabularies.Instance.Current.Name;
 		}
 
@@ -151,13 +164,18 @@ namespace KeyboardTrainer.ViewModel
 
 		private void LanguageChanged(object sender, InputLanguageEventArgs e)
 		{
-			CurrentLanguage = e.NewLanguage.Name;
+			IsUpperKeys = Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled;
+			RaisePropertyChanged(nameof(RequiredKey));
 		}
 
 		private void KeyDown(KeyEventArgs args)
 		{
-			var a = KeyboardConvert.GetCharFromKey(args.Key);
-			var b = InputLanguageManager.Current;
+
+		}
+
+		private void KeyUp(KeyEventArgs args)
+		{
+
 		}
 
 		private void TextInput(TextCompositionEventArgs args)
@@ -191,6 +209,10 @@ namespace KeyboardTrainer.ViewModel
 			if (NextText.Length == 0)
 			{
 				TypingEnd();
+			}
+			else
+			{
+				RequiredKey = NextText[0];
 			}
 		}
 

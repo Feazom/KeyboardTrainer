@@ -1,7 +1,8 @@
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using KeyboardTrainer.Model;
 using System.Windows;
+using System.Windows.Input;
 
 namespace KeyboardTrainer.ViewModel
 {
@@ -10,6 +11,7 @@ namespace KeyboardTrainer.ViewModel
 		public MainViewModel()
 		{
 			_ = Vocabularies.Instance;
+			_homeVm = ViewModelLocator.GetViewModel<HomeViewModel>();
 
 			CurrentView = ViewModelLocator.GetViewModel<HomeViewModel>();
 
@@ -19,6 +21,8 @@ namespace KeyboardTrainer.ViewModel
 			CloseWindowCommand = new RelayCommand<Window>(Close);
 			MinimizeWindowCommand = new RelayCommand<Window>(MinimizeWindow);
 			MoveWindowCommand = new RelayCommand<Window>(MoveWindow);
+			KeyDownCommand = new RelayCommand<KeyEventArgs>(KeyDown);
+			KeyUpCommand = new RelayCommand<KeyEventArgs>(KeyUp);
 		}
 
 		#region Properties
@@ -28,6 +32,8 @@ namespace KeyboardTrainer.ViewModel
 		public RelayCommand<Window> CloseWindowCommand { get; }
 		public RelayCommand<Window> MinimizeWindowCommand { get; }
 		public RelayCommand<Window> MoveWindowCommand { get; }
+		public RelayCommand<KeyEventArgs> KeyDownCommand { get; }
+		public RelayCommand<KeyEventArgs> KeyUpCommand { get; }
 
 		public object CurrentView
 		{
@@ -46,6 +52,32 @@ namespace KeyboardTrainer.ViewModel
 		#endregion
 
 		private object _currentView;
+		private readonly HomeViewModel _homeVm;
+
+		private void KeyDown(KeyEventArgs args)
+		{
+			if (args.Key == Key.LeftCtrl || args.Key == Key.RightCtrl)
+			{
+				return;
+			}
+			var capsToggled = Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled ||
+				Keyboard.GetKeyStates(Key.CapsLock) == (KeyStates.Toggled | KeyStates.Down);
+			var shiftDown = args.Key == Key.LeftShift || args.Key == Key.RightShift;
+
+			_homeVm.IsUpperKeys = capsToggled ^ shiftDown;
+		}
+
+		private void KeyUp(KeyEventArgs args)
+		{
+			if (args.Key == Key.LeftCtrl || args.Key == Key.RightCtrl)
+			{
+				return;
+			}
+			var capsToggled = Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled;
+			var shiftUp = args.Key == Key.LeftShift || args.Key == Key.RightShift;
+
+			_homeVm.IsUpperKeys = (capsToggled && shiftUp) || (capsToggled && !shiftUp);
+		}
 
 		private void ChangeViewTo<T>() where T : ViewModelBase
 		{

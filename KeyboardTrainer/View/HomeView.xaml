@@ -3,14 +3,15 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+			 xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              xmlns:model="clr-namespace:KeyboardTrainer.Model"
 			 DataContext="{Binding Source={StaticResource Locator}, Path=Home}"
 			 mc:Ignorable="d"
 			 d:DesignHeight="540" d:DesignWidth="850">
 
     <UserControl.Resources>
-        <model:KeyConverter x:Key="KeyConverter"/>
+        <model:KeysConverter x:Key="Converter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -194,419 +195,95 @@
                     Width="800"
                     Orientation="Horizontal">
 
-                    <Label Tag="`" Style="{StaticResource LeftPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="1" Style="{StaticResource LeftPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="2" Style="{StaticResource LeftPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="3" Style="{StaticResource LeftRingKey}" Width="55">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="4" Style="{StaticResource LeftMiddleKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="5" Style="{StaticResource LeftPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="6" Style="{StaticResource LeftPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="7" Style="{StaticResource RightPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="8" Style="{StaticResource RightPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="9" Style="{StaticResource RightMiddleKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="0" Style="{StaticResource RightRingKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="-" Style="{StaticResource RightPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="=" Style="{StaticResource RightPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Content="←" Style="{StaticResource Backspace}"/>
+                    <Label Tag="Oem3" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Tag="D1" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Tag="D2" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Tag="D3" Style="{StaticResource LeftRingKey}" Width="55"/>
+                    <Label Tag="D4" Style="{StaticResource LeftMiddleKey}"/>
+                    <Label Tag="D5" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Tag="D6" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Tag="D7" Style="{StaticResource RightPointerKey}"/>
+                    <Label Tag="D8" Style="{StaticResource RightPointerKey}"/>
+                    <Label Tag="D9" Style="{StaticResource RightMiddleKey}"/>
+                    <Label Tag="D0" Style="{StaticResource RightRingKey}"/>
+                    <Label Tag="OemMinus" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Tag="OemPlus" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Tag="←" Style="{StaticResource Backspace}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="1"
                     Width="800"
                     Orientation="Horizontal">
 
-                    <Label Content="TAB" Style="{StaticResource Tab}"/>
-                    <Label Tag="Q" Style="{StaticResource LeftPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="W" Style="{StaticResource LeftRingKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="E" Style="{StaticResource LeftMiddleKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="R" Style="{StaticResource LeftPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="T" Style="{StaticResource LeftPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="Y" Style="{StaticResource RightPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="U" Style="{StaticResource RightPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="I" Style="{StaticResource RightMiddleKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="O" Style="{StaticResource RightRingKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="P" Style="{StaticResource RightPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Style="{StaticResource RightPinkyKey}">
-                        <Label.Tag>{</Label.Tag>
-                    </Label>
-                    <Label Tag="}" Style="{StaticResource RightPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="\" Style="{StaticResource RightPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
+                    <Label Tag="TAB" Style="{StaticResource Tab}"/>
+                    <Label Tag="Q" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Tag="W" Style="{StaticResource LeftRingKey}"/>
+                    <Label Tag="E" Style="{StaticResource LeftMiddleKey}"/>
+                    <Label Tag="R" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Tag="T" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Tag="Y" Style="{StaticResource RightPointerKey}"/>
+                    <Label Tag="U" Style="{StaticResource RightPointerKey}"/>
+                    <Label Tag="I" Style="{StaticResource RightMiddleKey}"/>
+                    <Label Tag="O" Style="{StaticResource RightRingKey}"/>
+                    <Label Tag="P" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Tag="OemOpenBrackets" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Tag="Oem6" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Tag="Oem5" Style="{StaticResource RightPinkyKey}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2"
                     Width="800"
                     Orientation="Horizontal">
 
-                    <Label Content="CAPS" Style="{StaticResource Caps}"/>
-                    <Label Tag="A" Style="{StaticResource LeftPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="S" Style="{StaticResource LeftRingKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="D" Style="{StaticResource LeftMiddleKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="F" Style="{StaticResource LeftPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="G" Style="{StaticResource LeftPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="H" Style="{StaticResource RightPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="J" Style="{StaticResource RightPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="K" Style="{StaticResource RightMiddleKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="L" Style="{StaticResource RightRingKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag=";" Style="{StaticResource RightPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="'" Style="{StaticResource RightPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Content="ENTER" Style="{StaticResource Enter}"/>
+                    <Label Tag="CAPS" Style="{StaticResource Caps}"/>
+                    <Label Tag="A" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Tag="S" Style="{StaticResource LeftRingKey}"/>
+                    <Label Tag="D" Style="{StaticResource LeftMiddleKey}"/>
+                    <Label Tag="F" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Tag="G" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Tag="H" Style="{StaticResource RightPointerKey}"/>
+                    <Label Tag="J" Style="{StaticResource RightPointerKey}"/>
+                    <Label Tag="K" Style="{StaticResource RightMiddleKey}"/>
+                    <Label Tag="L" Style="{StaticResource RightRingKey}"/>
+                    <Label Tag="Oem1" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Tag="OemQuotes" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Tag="ENTER" Style="{StaticResource Enter}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="3"
                     Width="800"
                     Orientation="Horizontal">
 
-                    <Label Content="SHIFT" Style="{StaticResource LeftShift}"/>
-                    <Label Tag="Z" Style="{StaticResource LeftPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="X" Style="{StaticResource LeftRingKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="C" Style="{StaticResource LeftMiddleKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="V" Style="{StaticResource LeftPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="B" Style="{StaticResource LeftPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="N" Style="{StaticResource RightPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="M" Style="{StaticResource RightPointerKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="," Style="{StaticResource RightMiddleKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="." Style="{StaticResource RightRingKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Tag="/" Style="{StaticResource RightPinkyKey}">
-                        <Label.Content>
-                            <MultiBinding Converter="{StaticResource KeyConverter}">
-                                <Binding Path="Tag"  RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="CurrentLanguage"/>
-                            </MultiBinding>
-                        </Label.Content>
-                    </Label>
-                    <Label Content="SHIFT" Style="{StaticResource RightShift}"/>
+                    <Label Tag="SHIFT" Style="{StaticResource LeftShift}"/>
+                    <Label Tag="Z" Style="{StaticResource LeftPinkyKey}"/>
+                    <Label Tag="X" Style="{StaticResource LeftRingKey}"/>
+                    <Label Tag="C" Style="{StaticResource LeftMiddleKey}"/>
+                    <Label Tag="V" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Tag="B" Style="{StaticResource LeftPointerKey}"/>
+                    <Label Tag="N" Style="{StaticResource RightPointerKey}"/>
+                    <Label Tag="M" Style="{StaticResource RightPointerKey}"/>
+                    <Label Tag="OemComma" Style="{StaticResource RightMiddleKey}"/>
+                    <Label Tag="OemPeriod" Style="{StaticResource RightRingKey}"/>
+                    <Label Tag="OemQuestion" Style="{StaticResource RightPinkyKey}"/>
+                    <Label Tag="SHIFT" Style="{StaticResource RightShift}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="4"
                     Width="800"
                     Orientation="Horizontal">
 
-                    <Label Content="CTRL" Style="{StaticResource Empty}"/>
-                    <Label Style="{StaticResource Empty}">
+                    <Label Tag="CTRL" Style="{StaticResource Empty}"/>
+                    <Label Tag="OPT"  Style="{StaticResource Empty}">
                         <Image Source="/Images/windows.png" Margin="7"/>
                     </Label>
-                    <Label Content="ALT" Style="{StaticResource Empty}"/>
-                    <Label Content="SPACE" Style="{StaticResource Space}"/>
-                    <Label Content="ALT" Style="{StaticResource Empty}"/>
-                    <Label Style="{StaticResource Empty}">
+                    <Label Tag="ALT" Style="{StaticResource Empty}"/>
+                    <Label Tag="SPACE" Style="{StaticResource Space}"/>
+                    <Label Tag="ALT" Style="{StaticResource Empty}"/>
+                    <Label Tag="OPT"  Style="{StaticResource Empty}">
                         <Image Source="/Images/menu.png" Margin="7"/>
                     </Label>
-                    <Label Content="FN" Style="{StaticResource Empty}"/>
-                    <Label Content="CTRL" Style="{StaticResource Empty}"/>
+                    <Label Tag="FN" Style="{StaticResource Empty}"/>
+                    <Label Tag="CTRL" Style="{StaticResource Empty}"/>
                 </StackPanel>
             </Grid>
         </Border>
