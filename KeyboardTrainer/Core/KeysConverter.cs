@@ -1,10 +1,9 @@
-﻿using KeyboardTrainer.Core;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace KeyboardTrainer.Model
+namespace KeyboardTrainer.Core
 {
 	public class KeysConverter : IMultiValueConverter
 	{

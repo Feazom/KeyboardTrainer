@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:model="clr-namespace:KeyboardTrainer.Model"
+                    xmlns:core="clr-namespace:KeyboardTrainer.Core"
                     xmlns:view="clr-namespace:KeyboardTrainer.View"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style x:Key="BaseKey" 
@@ -21,7 +21,7 @@
                             <Border.Background>
                                 <MultiBinding>
                                     <MultiBinding.Converter>
-                                        <model:BackgroundConverter/>
+                                        <core:BackgroundConverter/>
                                     </MultiBinding.Converter>
                                     <Binding Path="Tag" RelativeSource="{RelativeSource TemplatedParent}"/>
                                     <Binding Path="RequiredKey"/>
@@ -33,13 +33,12 @@
                             <Label FontSize="16"
                                 x:Name="keyLabel"
                                 HorizontalAlignment="Center"
-                                view:AutoForegroundExtension.AutoForeground="True"
                                 VerticalAlignment="Center">
 
                                 <Label.Content>
                                     <MultiBinding>
                                         <MultiBinding.Converter>
-                                            <model:KeysConverter/>
+                                            <core:KeysConverter/>
                                         </MultiBinding.Converter>
                                         <Binding Path="Tag" RelativeSource="{RelativeSource TemplatedParent}"/>
                                         <Binding Path="IsUpperKeys"/>
@@ -48,7 +47,7 @@
                                 <Label.Foreground>
                                     <MultiBinding>
                                         <MultiBinding.Converter>
-                                            <model:ForegroundConverter/>
+                                            <core:ForegroundConverter/>
                                         </MultiBinding.Converter>
                                         <Binding Path="Tag" RelativeSource="{RelativeSource TemplatedParent}"/>
                                         <Binding Path="RequiredKey"/>

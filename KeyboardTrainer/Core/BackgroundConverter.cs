@@ -1,12 +1,11 @@
-﻿using KeyboardTrainer.ViewModel;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace KeyboardTrainer.Model
+namespace KeyboardTrainer.Core
 {
 	public class BackgroundConverter : IMultiValueConverter
 	{
@@ -24,7 +23,7 @@ namespace KeyboardTrainer.Model
 			var isDifferentCase = char.IsUpper((char)values[1]) != (bool)values[3] && requiredKey != Key.Space;
 			var isRightKey = tag.Equals(requiredKey.ToString(), StringComparison.CurrentCultureIgnoreCase);
 
-			if ((isRightKey && !isDifferentCase) || (isDifferentCase && (isShift || isCaps)))
+			if (isRightKey || (isDifferentCase && (isShift || isCaps)))
 			{
 				if (isCaps)
 				{
