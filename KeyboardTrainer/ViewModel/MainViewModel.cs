@@ -23,6 +23,7 @@ namespace KeyboardTrainer.ViewModel
 			MoveWindowCommand = new RelayCommand<Window>(MoveWindow);
 			KeyDownCommand = new RelayCommand<KeyEventArgs>(KeyDown);
 			KeyUpCommand = new RelayCommand<KeyEventArgs>(KeyUp);
+			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(ViewModelLocator.GetViewModel<HomeViewModel>().TextInput);
 		}
 
 		#region Properties
@@ -34,11 +35,12 @@ namespace KeyboardTrainer.ViewModel
 		public RelayCommand<Window> MoveWindowCommand { get; }
 		public RelayCommand<KeyEventArgs> KeyDownCommand { get; }
 		public RelayCommand<KeyEventArgs> KeyUpCommand { get; }
+		public RelayCommand<TextCompositionEventArgs> TextInputCommand { get; }
 
 		public object CurrentView
 		{
 			get => _currentView;
-			set
+			private set
 			{
 				if (_currentView == value)
 				{

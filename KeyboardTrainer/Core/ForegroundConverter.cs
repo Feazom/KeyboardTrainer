@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace KeyboardTrainer.Core
@@ -12,13 +11,7 @@ namespace KeyboardTrainer.Core
 	{
 		public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
 		{
-			var tag = (string)values[0];
-
-			var keyChar = char.ToLower((char)values[1]);
-			var keyCode = VkKeyScan(keyChar);
-			var key = KeyInterop.KeyFromVirtualKey(keyCode);
-
-			var border = (Border)values[2];
+			var border = (Border)values[0];
 			var borderColor = ((SolidColorBrush)border.Background).Color;
 			var brightness = Brightness(borderColor);
 			var foreground = brightness > 127 ? Brushes.Black : Brushes.White;

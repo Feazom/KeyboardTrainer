@@ -20,14 +20,18 @@
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="KeyDown">
-                <cmd:EventToCommand Command="{Binding KeyDownCommand}"
+                <cmd:EventToCommand Command="{Binding KeyDownCommand, Mode=OneTime}"
                     PassEventArgsToCommand="True"/>
             </i:EventTrigger>
 
             <i:EventTrigger EventName="KeyUp">
-                <cmd:EventToCommand Command="{Binding KeyUpCommand}"
+                <cmd:EventToCommand Command="{Binding KeyUpCommand, Mode=OneTime}"
                     PassEventArgsToCommand="True"/>
+            </i:EventTrigger>
 
+            <i:EventTrigger EventName="TextInput">
+                <cmd:EventToCommand Command="{Binding TextInputCommand, Mode=OneTime}"
+                    PassEventArgsToCommand="True"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
@@ -49,7 +53,7 @@
 
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseLeftButtonDown">
-                        <i:InvokeCommandAction Command="{Binding MoveWindowCommand}"
+                        <i:InvokeCommandAction Command="{Binding MoveWindowCommand, Mode=OneTime}"
 							CommandParameter="{Binding ElementName=Window}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
@@ -63,25 +67,18 @@
 					VerticalAlignment="Top"
 					Style="{StaticResource MinimizeButton}"
 					Width="45" Grid.Column="1"
-					Command="{Binding MinimizeWindowCommand}"
-					CommandParameter="{Binding ElementName=Window}">
+					Command="{Binding MinimizeWindowCommand, Mode=OneTime}"
+					CommandParameter="{Binding ElementName=Window}"/>
 
-                <Image Source="Images/minimize.png"
-					Width="17"/>
-            </Button>
-            <Button	HorizontalAlignment="Right" 
+            <Button	HorizontalAlignment="Right"
 					Height="30" 
 					Margin="0"
 					BorderThickness="0"
 					VerticalAlignment="Top"
 					Style="{StaticResource CloseButton}"
 					Width="45" Grid.Column="1"
-					Command="{Binding CloseWindowCommand}"
-					CommandParameter="{Binding ElementName=Window}">
-
-                <Image Source="Images/blackClose.png"
-					Width="17"/>
-            </Button>
+					Command="{Binding CloseWindowCommand, Mode=OneTime}"
+					CommandParameter="{Binding ElementName=Window}"/>
 
             <TextBlock Text="Key Trainer"
 					   VerticalAlignment="Center"
@@ -91,7 +88,7 @@
 
 				<i:Interaction.Triggers>
 					<i:EventTrigger EventName="MouseLeftButtonDown">
-						<i:InvokeCommandAction Command="{Binding MoveWindowCommand}"
+						<i:InvokeCommandAction Command="{Binding MoveWindowCommand, Mode=OneTime}"
 							CommandParameter="{Binding ElementName=Window}"/>
                     </i:EventTrigger>
 				</i:Interaction.Triggers>
@@ -104,27 +101,26 @@
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"
 							 IsChecked="True"
-							 Command="{Binding HomeViewCommand}"/>
+							 Command="{Binding HomeViewCommand, Mode=OneTime}"/>
 
                 <RadioButton x:Name="Настройки"
 							 Height="50"
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"
-							 Command="{Binding SettingsViewCommand}"/>
+							 Command="{Binding SettingsViewCommand, Mode=OneTime}"/>
 
                 <RadioButton x:Name="Статистика"
 							 Height="50"
 							 FontSize="14"
 							 Style="{StaticResource MenuButton}"
-							 Command="{Binding StatisticViewCommand}"/>
+							 Command="{Binding StatisticViewCommand, Mode=OneTime}"/>
             </StackPanel>
 
             <ContentControl Grid.Row="1"
 							Grid.Column="1"
 							local:FocusExtension.IsFocused="True"
 							Margin="10"
-							x:Name="Content"
-							Content="{Binding CurrentView}"/>
+							Content="{Binding CurrentView, Mode=OneWay}"/>
         </Grid>
     </Border>
 </Window>

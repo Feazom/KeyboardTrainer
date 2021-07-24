@@ -24,24 +24,19 @@ namespace KeyboardTrainer.ViewModel
 			_nextText = new StringBuilder();
 			_stopwatch = new Stopwatch();
 
-			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(TextInput);
 			LoadedCommand = new RelayCommand(Reset);
 			SaveResultCommand = new RelayCommand(SaveResult);
-			//KeyDownCommand = new RelayCommand<KeyEventArgs>(KeyDown);
-			//KeyUpCommand = new RelayCommand<KeyEventArgs>(KeyUp);
 		}
 
 		#region Properties
 		public RelayCommand<TextCompositionEventArgs> TextInputCommand { get; }
 		public RelayCommand LoadedCommand { get; }
 		public RelayCommand SaveResultCommand { get; }
-		//public RelayCommand<KeyEventArgs> KeyDownCommand { get; }
-		//public RelayCommand<KeyEventArgs> KeyUpCommand { get; }
 
 		public string NextText
 		{
 			get => _nextText.ToString();
-			set
+			private set
 			{
 				_nextText.Clear();
 				_nextText.Append(value);
@@ -53,7 +48,7 @@ namespace KeyboardTrainer.ViewModel
 		public string TypedText
 		{
 			get => _typedText.ToString();
-			set
+			private set
 			{
 				_typedText.Clear();
 				_typedText.Append(value);
@@ -61,36 +56,10 @@ namespace KeyboardTrainer.ViewModel
 			}
 		}
 
-		public int TypedKey
-		{
-			get => _typedKey;
-			set
-			{
-				_typedKey = value;
-				RaisePropertyChanged(nameof(CharPerMinute));
-			}
-		}
-
-		public int CharPerMinute =>
-			Time.TotalMinutes == 0 ? 0 :
-			(int)Math.Round(_typedKey / Time.TotalMinutes);
-
-		public Fraction ErrorsFraction
-		{
-			get => _errorsFraction;
-			set
-			{
-				_errorsFraction = value;
-				RaisePropertyChanged(nameof(ErrorsPercent));
-			}
-		}
-
-		public double ErrorsPercent => ErrorsFraction.GetPercent();
-
 		public TimeSpan Time
 		{
 			get => _time;
-			set
+			private set
 			{
 				_time = value;
 				RaisePropertyChanged(nameof(Time));
@@ -100,7 +69,7 @@ namespace KeyboardTrainer.ViewModel
 		public Visibility ResultVisibility
 		{
 			get => _resultVisibility;
-			set
+			private set
 			{
 				_resultVisibility = value;
 				RaisePropertyChanged(nameof(ResultVisibility));
@@ -120,15 +89,20 @@ namespace KeyboardTrainer.ViewModel
 		public char RequiredKey
 		{
 			get => _requiredKey;
-			set
+			private set
 			{
 				_requiredKey = value;
 				RaisePropertyChanged(nameof(RequiredKey));
 			}
 		}
+
+		public int CharPerMinute => Time.TotalMinutes == 0 ?
+			0 :
+			(int)Math.Round(_typedKey / Time.TotalMinutes);
+
+		public double ErrorsPercent => _errorsFraction.GetPercent();
 		#endregion
 
-		private string _test;
 		private readonly StringBuilder _typedText;
 		private readonly StringBuilder _nextText;
 		private string _currentVocabulary;
@@ -147,12 +121,12 @@ namespace KeyboardTrainer.ViewModel
 			_errorsCount = 0;
 			_stopwatch.Reset();
 			_timer.Stop();
-			ErrorsFraction = new Fraction();
-			TypedKey = 0;
+			SetErrorsFraction(new Fraction());
+			SetTypedKey(0);
 
 			Time = TimeSpan.Zero;
 			TypedText = "";
-			NextText = Vocabularies.Instance.GetContent(100, true);
+			NextText = Vocabularies.Instance.GetContent(5, true);
 			RequiredKey = NextText[0];
 			_currentVocabulary = Vocabularies.Instance.Current.Name;
 		}
@@ -165,21 +139,11 @@ namespace KeyboardTrainer.ViewModel
 
 		private void LanguageChanged(object sender, InputLanguageEventArgs e)
 		{
-			IsUpperKeys = Keyboard.GetKeyStates(Key.CapsLock) == KeyStates.Toggled;
+			RaisePropertyChanged(nameof(IsUpperKeys));
 			RaisePropertyChanged(nameof(RequiredKey));
 		}
 
-		//private void KeyDown(KeyEventArgs args)
-		//{
-
-		//}
-
-		//private void KeyUp(KeyEventArgs args)
-		//{
-
-		//}
-
-		private void TextInput(TextCompositionEventArgs args)
+		public void TextInput(TextCompositionEventArgs args)
 		{
 			var key = args.Text;
 
@@ -198,12 +162,12 @@ namespace KeyboardTrainer.ViewModel
 			if (key != expectedKey)
 			{
 				_errorsCount++;
-				ErrorsFraction = new Fraction(_errorsCount, _typedKey + _errorsCount);
+				SetErrorsFraction(new Fraction(_errorsCount, _typedKey + _errorsCount));
 				return;
 			}
 
-			TypedKey++;
-			ErrorsFraction = new Fraction(_errorsCount, _typedKey + _errorsCount);
+			SetTypedKey(_typedKey + 1);
+			SetErrorsFraction(new Fraction(_errorsCount, _typedKey + _errorsCount));
 			ShiftNextText();
 			AddTypedText(key);
 
@@ -240,6 +204,18 @@ namespace KeyboardTrainer.ViewModel
 
 			Reset();
 			ResultVisibility = Visibility.Hidden;
+		}
+
+		private void SetErrorsFraction(Fraction value)
+		{
+			_errorsFraction = value;
+			RaisePropertyChanged(nameof(ErrorsPercent));
+		}
+
+		private void SetTypedKey(int value)
+		{
+			_typedKey = value;
+			RaisePropertyChanged(nameof(CharPerMinute));
 		}
 
 		private void AddTypedText(string letter)

@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using KeyboardTrainer.Core;
 using KeyboardTrainer.Model;
 using OxyPlot;
 using OxyPlot.Axes;
@@ -15,10 +16,10 @@ namespace KeyboardTrainer.ViewModel
 		{
 			_intervals = new Dictionary<string, Interval>
 			{
-				{ "Час" , new Interval(TimeSpan.FromHours(1), DateTimeIntervalType.Seconds)},
-				{ "Сутки" , new Interval(TimeSpan.FromHours(24), DateTimeIntervalType.Minutes)},
-				{ "Неделя" , new Interval(TimeSpan.FromDays(7), DateTimeIntervalType.Auto)},
-				{ "Месяц" , new Interval(TimeSpan.FromDays(30), DateTimeIntervalType.Days)}
+				{ "Час" , new Interval(TimeSpan.FromHours(1), "HH:mm:ss\n")},
+				{ "Сутки" , new Interval(TimeSpan.FromHours(24), "HH:mm\n")},
+				{ "Неделя" , new Interval(TimeSpan.FromDays(7), "HH:mm\ndd/MM")},
+				{ "Месяц" , new Interval(TimeSpan.FromDays(30), "HH:mm\ndd/MM")}
 			};
 			SelectedInterval = _intervals.Keys.FirstOrDefault();
 			SelectedVocabulary = Vocabularies.Instance.Current.Name;
@@ -29,33 +30,13 @@ namespace KeyboardTrainer.ViewModel
 		#region Properties
 		public RelayCommand LoadedCommand { get; }
 
-		public DateTime MaxTime
+		public string DateTimeFormat
 		{
-			get => _maxTime;
+			get => _dateTimeFormat;
 			private set
 			{
-				_maxTime = value;
-				RaisePropertyChanged(nameof(MaxTimeInDouble));
-			}
-		}
-
-		public DateTime MinTime
-		{
-			get => _minTime;
-			private set
-			{
-				_minTime = value;
-				RaisePropertyChanged(nameof(MinTimeInDouble));
-			}
-		}
-
-		public DateTimeIntervalType IntervalType
-		{
-			get => _intervalType;
-			set
-			{
-				_intervalType = value;
-				RaisePropertyChanged(nameof(IntervalType));
+				_dateTimeFormat = value;
+				RaisePropertyChanged(nameof(DateTimeFormat));
 			}
 		}
 
@@ -109,8 +90,8 @@ namespace KeyboardTrainer.ViewModel
 			}
 		}
 
-		public double MaxTimeInDouble => DateTimeAxis.ToDouble(MaxTime + TimeSpan.FromSeconds(1));
-		public double MinTimeInDouble => DateTimeAxis.ToDouble(MinTime - TimeSpan.FromSeconds(1));
+		public double MaxTimeInDouble => DateTimeAxis.ToDouble(_maxTime + TimeSpan.FromSeconds(1));
+		public double MinTimeInDouble => DateTimeAxis.ToDouble(_minTime - TimeSpan.FromSeconds(1));
 		public string[] VocabularyList => Vocabularies.Instance.Collection.Select(n => n.Name).ToArray();
 		public string[] IntervalList => _intervals.Keys.ToArray();
 		#endregion
@@ -118,7 +99,7 @@ namespace KeyboardTrainer.ViewModel
 		private DateTime _maxTime;
 		private DateTime _minTime;
 		private readonly Dictionary<string, Interval> _intervals;
-		private DateTimeIntervalType _intervalType;
+		private string _dateTimeFormat;
 		private string _selectedInterval;
 		private string _selectedVocabulary;
 		private int _maxCharPerMinute;
@@ -131,7 +112,10 @@ namespace KeyboardTrainer.ViewModel
 				.Where(n => n.Vocabulary == SelectedVocabulary)
 				.OrderBy(n => n.Time);
 
-			IntervalType = _intervals[SelectedInterval].Step;
+			DateTimeFormat = _intervals[SelectedInterval].TimeFormat;
+
+			SetMaxTime(DateTime.Now);
+			SetMinTime(DateTime.Now - _intervals[SelectedInterval].TimeSpan);
 
 			if (!statistic.Any())
 			{
@@ -140,17 +124,28 @@ namespace KeyboardTrainer.ViewModel
 				return;
 			}
 
-			MaxTime = DateTime.Now;
-			MinTime = DateTime.Now - _intervals[SelectedInterval].TimeSpan;
+
 			MaxCharPerMinute = statistic
 				.Select(n => n.CharPerMinute)
 				.Max();
 			PointsCharPerMinute = statistic
-				.Where(n => n.Time >= MinTime && n.Time <= MaxTime)
+				.Where(n => n.Time >= _minTime && n.Time <= _maxTime)
 				.Select(n => new DataPoint(DateTimeAxis.ToDouble(n.Time.ToLocalTime().DateTime), n.CharPerMinute));
 			PointsErrors = statistic
-				.Where(n => n.Time >= MinTime && n.Time <= MaxTime)
+				.Where(n => n.Time >= _minTime && n.Time <= _maxTime)
 				.Select(n => new DataPoint(DateTimeAxis.ToDouble(n.Time.ToLocalTime().DateTime), n.ErrorsPercent));
+		}
+
+		private void SetMinTime(DateTime value)
+		{
+			_minTime = value;
+			RaisePropertyChanged(nameof(MinTimeInDouble));
+		}
+
+		private void SetMaxTime(DateTime value)
+		{
+			_maxTime = value;
+			RaisePropertyChanged(nameof(MaxTimeInDouble));
 		}
 	}
 }

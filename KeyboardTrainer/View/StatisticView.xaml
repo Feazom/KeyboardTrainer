@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">
-                <cmd:EventToCommand Command="{Binding LoadedCommand}"/>
+                <cmd:EventToCommand Command="{Binding LoadedCommand, Mode=OneTime}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
@@ -32,7 +32,7 @@
                 VerticalContentAlignment="Center"
                 Width="100"
                 Margin="0,0,0,0"
-                ItemsSource="{Binding IntervalList}"
+                ItemsSource="{Binding IntervalList, Mode=OneTime}"
                 SelectedItem="{Binding SelectedInterval}"/>
 
             <Label Content="Словарь:"
@@ -47,7 +47,7 @@
                 VerticalContentAlignment="Center"
                 Width="100"
                 Margin="0,0,0,0"
-                ItemsSource="{Binding VocabularyList}"
+                ItemsSource="{Binding VocabularyList, Mode=OneTime}"
                 SelectedItem="{Binding SelectedVocabulary}"/>
         </StackPanel>
 
@@ -60,48 +60,52 @@
                     <oxy:Plot.Axes>
                         <oxy:DateTimeAxis Position="Bottom"
                             Title="Время установки результата"
-                            AbsoluteMaximum="{Binding MaxTimeInDouble}"
-                            AbsoluteMinimum="{Binding MinTimeInDouble}"
-                            Maximum="{Binding MaxTimeInDouble}"
-                            Minimum="{Binding MinTimeInDouble}"
-                            IntervalType="{Binding IntervalType, Mode=OneWay}"/>
+                            AbsoluteMaximum="{Binding MaxTimeInDouble, Mode=OneWay}"
+                            AbsoluteMinimum="{Binding MinTimeInDouble, Mode=OneWay}"
+                            Maximum="{Binding MaxTimeInDouble, Mode=OneWay}"
+                            Minimum="{Binding MinTimeInDouble, Mode=OneWay}"
+                            StringFormat="{Binding DateTimeFormat, Mode=OneWay}"/>
 
                         <oxy:LinearAxis Position="Left"
                             Title="Клавиш в минуту"
                             AbsoluteMinimum="0"
-                            Maximum="{Binding MaxCharPerMinute}"
+                            Maximum="{Binding MaxCharPerMinute, Mode=OneWay}"
                             AbsoluteMaximum="1500"
                             IsZoomEnabled="False"/>
                     </oxy:Plot.Axes>
 
                     <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding PointsCharPerMinute}"
+                        <oxy:LineSeries ItemsSource="{Binding PointsCharPerMinute, Mode=OneWay}"
                             MarkerType="Circle"
                             MarkerStroke="DarkGreen"
                             CanTrackerInterpolatePoints="False"/>
                     </oxy:Plot.Series>
                 </oxy:Plot>
+
+                <Separator Height="10"
+                    Background="Transparent"/>
+
                 <oxy:Plot Title="Ошибки"
                     Height="430"
                     Background="#F0F0F0">
                     <oxy:Plot.Axes>
                         <oxy:DateTimeAxis Position="Bottom"
                             Title="Время установки результата"
-                            AbsoluteMaximum="{Binding MaxTimeInDouble}"
-                            AbsoluteMinimum="{Binding MinTimeInDouble}"
-                            Maximum="{Binding MaxTimeInDouble}"
-                            Minimum="{Binding MinTimeInDouble}"
-                            IntervalType="{Binding IntervalType}"/>
+                            AbsoluteMaximum="{Binding MaxTimeInDouble, Mode=OneWay}"
+                            AbsoluteMinimum="{Binding MinTimeInDouble, Mode=OneWay}"
+                            Maximum="{Binding MaxTimeInDouble, Mode=OneWay}"
+                            Minimum="{Binding MinTimeInDouble, Mode=OneWay}"
+                            StringFormat="{Binding DateTimeFormat, Mode=OneWay}"/>
 
                         <oxy:LinearAxis Position="Left"
-                            Title="Клавиш в минуту"
+                            Title="Процент ошибок"
                             AbsoluteMinimum="0"
                             AbsoluteMaximum="100"
                             IsZoomEnabled="False"/>
                     </oxy:Plot.Axes>
 
                     <oxy:Plot.Series>
-                        <oxy:LineSeries ItemsSource="{Binding PointsErrors}"
+                        <oxy:LineSeries ItemsSource="{Binding PointsErrors, Mode=OneWay}"
                             MarkerType="Circle"
                             CanTrackerInterpolatePoints="False"/>
                     </oxy:Plot.Series>

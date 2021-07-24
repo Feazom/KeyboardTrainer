@@ -40,7 +40,8 @@ namespace KeyboardTrainer.Model
 			FillVocabularyList();
 
 			var settings = Settings.Load();
-			if (settings.IsEmpty)
+
+			if (settings.SelectedVocabulary == null)
 			{
 				Current = Collection.FirstOrDefault();
 			}

@@ -34,8 +34,8 @@
                 Width="130"
                 HorizontalAlignment="Right"
                 VerticalContentAlignment="Center"
-                ItemsSource="{Binding VocabularyList, Mode=OneWay}"
-                SelectedItem="{Binding SelectedVocabulary}"/>
+                ItemsSource="{Binding VocabularyList, Mode=OneTime}"
+                SelectedItem="{Binding SelectedVocabulary, Mode=TwoWay}"/>
 
         </StackPanel>
 
@@ -47,7 +47,7 @@
             Margin="0,5,5,5"/>
 
         <Button Content="Сохранить"
-            Command="{Binding SaveSettingCommand}"
+            Command="{Binding SaveSettingCommand, Mode=OneTime}"
             Height="30"
             Width="70"
             Grid.ColumnSpan="3"

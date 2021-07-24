@@ -10,10 +10,6 @@
 			 mc:Ignorable="d"
 			 d:DesignHeight="540" d:DesignWidth="850">
 
-    <UserControl.Resources>
-        <model:KeysConverter x:Key="Converter"/>
-    </UserControl.Resources>
-
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -29,11 +25,11 @@
 
         <i:Interaction.Triggers>
             <i:EventTrigger EventName="Loaded">
-                <cmd:EventToCommand Command="{Binding LoadedCommand}"/>
+                <cmd:EventToCommand Command="{Binding LoadedCommand, Mode=OneTime}"/>
             </i:EventTrigger>
         </i:Interaction.Triggers>
 
-        <Border Visibility="{Binding ResultVisibility}"
+        <Border Visibility="{Binding ResultVisibility, Mode=OneWay}"
 			Grid.Column="1" 
 			Grid.Row="1"
 			BorderThickness="1"
@@ -44,7 +40,7 @@
             <StackPanel Margin="0"
 			Orientation="Horizontal">
 
-                <TextBlock Text="{Binding CharPerMinute, StringFormat=CPM: {0}}"
+                <TextBlock Text="{Binding CharPerMinute, Mode=OneWay, StringFormat=CPM: {0}}"
 				TextAlignment="Left"
 				FontSize="20"
 				Width="100"
@@ -56,7 +52,7 @@
 					Height="30"
 					Padding="0"/>
 
-                    <TextBlock Text="{Binding ErrorsPercent, StringFormat=Errors: \{0\}%}"
+                    <TextBlock Text="{Binding ErrorsPercent, Mode=OneWay, StringFormat=Errors: \{0\}%}"
 					TextAlignment="Left"
 					FontSize="20"
 					Width="120"
@@ -68,7 +64,7 @@
 					Margin="0,20,0,0"
 					Height="30"
 					Width="50"
-					Command="{Binding SaveResultCommand}"/>
+					Command="{Binding SaveResultCommand, Mode=OneTime}"/>
                 </StackPanel>
 
                 <TextBlock TextAlignment="Right"
@@ -76,7 +72,7 @@
 				Width="110"
 				Margin="50,45,20,0">
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="{}Time: {0:00}:{1:00}">
+                        <MultiBinding StringFormat="{}Time: {0:00}:{1:00}" Mode="OneWay">
                             <Binding Path="Time.Minutes"/>
                             <Binding Path="Time.Seconds"/>
                         </MultiBinding>
@@ -93,12 +89,12 @@
 			Grid.Column="1" 
 			Grid.Row="1">
 
-            <TextBlock Text="{Binding CharPerMinute, StringFormat=CPM: {0}}"
+            <TextBlock Text="{Binding CharPerMinute, Mode=OneWay, StringFormat=CPM: {0}}"
 				TextAlignment="Left"
 				FontSize="20"
 				Width="100"
 				Margin="0,0,70,0"/>
-            <TextBlock Text="{Binding ErrorsPercent, StringFormat=Errors: \{0\}%}"
+            <TextBlock Text="{Binding ErrorsPercent, Mode=OneWay, StringFormat=Errors: \{0\}%}"
 				TextAlignment="Left"
 				FontSize="20"
 				Width="120"
@@ -109,7 +105,7 @@
 				Width="110"
 				Margin="50,0,0,0">
                 <TextBlock.Text>
-                    <MultiBinding StringFormat="{}Time: {0:00}:{1:00}">
+                    <MultiBinding StringFormat="{}Time: {0:00}:{1:00}" Mode="OneWay">
                         <Binding Path="Time.Minutes"/>
                         <Binding Path="Time.Seconds"/>
                     </MultiBinding>
@@ -131,15 +127,8 @@
 				Grid.Row="1" 
 				Grid.Column="1">
 
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="TextInput">
-                    <cmd:EventToCommand Command="{Binding TextInputCommand}"
-						PassEventArgsToCommand="True"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding TypedText}"
+                <TextBlock Text="{Binding TypedText, Mode=OneWay}"
 					Width="300"
 					Height="30"
 					VerticalAlignment="Center"
@@ -159,7 +148,7 @@
                     </Separator.LayoutTransform>
                 </Separator>
 
-                <TextBlock Text="{Binding NextText}"
+                <TextBlock Text="{Binding NextText, Mode=OneWay}"
 					Height="30"
 					Width="300"
 					FontSize="18"
@@ -193,7 +182,7 @@
                     <Label Tag="Oem3" Style="{StaticResource LeftPinkyKey}"/>
                     <Label Tag="D1" Style="{StaticResource LeftPinkyKey}"/>
                     <Label Tag="D2" Style="{StaticResource LeftPinkyKey}"/>
-                    <Label Tag="D3" Style="{StaticResource LeftRingKey}" Width="55"/>
+                    <Label Tag="D3" Style="{StaticResource LeftRingKey}"/>
                     <Label Tag="D4" Style="{StaticResource LeftMiddleKey}"/>
                     <Label Tag="D5" Style="{StaticResource LeftPointerKey}"/>
                     <Label Tag="D6" Style="{StaticResource LeftPointerKey}"/>

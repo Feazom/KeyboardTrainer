@@ -18,13 +18,5 @@ namespace KeyboardTrainer.View
 		{
 			((UIElement)sender).Focus();
 		}
-
-		private void VisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
-		{
-			if ((bool)e.NewValue)
-			{
-				((UIElement)sender).Focus();
-			}
-		}
 	}
 }

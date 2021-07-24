@@ -1,17 +1,16 @@
-﻿using OxyPlot.Axes;
-using System;
+﻿using System;
 
-namespace KeyboardTrainer.Model
+namespace KeyboardTrainer.Core
 {
 	public struct Interval
 	{
-		public Interval(TimeSpan timeSpan, DateTimeIntervalType step)
+		public Interval(TimeSpan timeSpan, string timeFormat)
 		{
 			TimeSpan = timeSpan;
-			Step = step;
+			TimeFormat = timeFormat;
 		}
 
 		public TimeSpan TimeSpan { get; }
-		public DateTimeIntervalType Step { get; }
+		public string TimeFormat { get; }
 	}
 }

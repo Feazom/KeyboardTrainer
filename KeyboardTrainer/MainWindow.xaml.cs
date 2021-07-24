@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace KeyboardTrainer
 {
@@ -7,6 +8,16 @@ namespace KeyboardTrainer
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			PreviewKeyDown += Preview;
+		}
+
+		private void Preview(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.Tab || e.Key == Key.Left || e.Key == Key.Up || e.Key == Key.Down || e.Key == Key.Right)
+			{
+				e.Handled = true;
+			}
 		}
 	}
 }
