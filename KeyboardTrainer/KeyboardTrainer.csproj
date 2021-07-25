@@ -156,7 +156,6 @@
     <Compile Include="Core\Converters\ForegroundConverter.cs" />
     <Compile Include="Core\Converters\KeysConverter.cs" />
     <Compile Include="Model\Manifest.cs" />
-    <Compile Include="Model\Settings.cs" />
     <Compile Include="Model\Statistic.cs" />
     <Compile Include="Model\Vocabularies.cs" />
     <Compile Include="Model\Vocabulary.cs" />

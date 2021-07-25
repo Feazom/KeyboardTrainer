@@ -21,11 +21,10 @@ namespace KeyboardTrainer.ViewModel
 			StatisticViewCommand = new RelayCommand(ChangeViewTo<StatisticViewModel>);
 			CloseWindowCommand = new RelayCommand<Window>(Close);
 			MinimizeWindowCommand = new RelayCommand<Window>(MinimizeWindow);
-			MoveWindowCommand = new RelayCommand<Window>(MoveWindow);
 			KeyDownCommand = new RelayCommand<KeyEventArgs>(KeyDown);
 			KeyUpCommand = new RelayCommand<KeyEventArgs>(KeyUp);
 			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(TextInput);
-			ClosedCommand = new RelayCommand(Closed);
+			ClosingCommand = new RelayCommand(Closing);
 		}
 
 		#region Properties
@@ -34,11 +33,10 @@ namespace KeyboardTrainer.ViewModel
 		public RelayCommand StatisticViewCommand { get; }
 		public RelayCommand<Window> CloseWindowCommand { get; }
 		public RelayCommand<Window> MinimizeWindowCommand { get; }
-		public RelayCommand<Window> MoveWindowCommand { get; }
 		public RelayCommand<KeyEventArgs> KeyDownCommand { get; }
 		public RelayCommand<KeyEventArgs> KeyUpCommand { get; }
 		public RelayCommand<TextCompositionEventArgs> TextInputCommand { get; }
-		public RelayCommand ClosedCommand { get; }
+		public RelayCommand ClosingCommand { get; }
 
 		public object CurrentView
 		{
@@ -59,9 +57,10 @@ namespace KeyboardTrainer.ViewModel
 		private object _currentView;
 		private readonly HomeViewModel _homeVm;
 
-		private void Closed()
+		private void Closing()
 		{
 			AudioPlaybackEngine.Instance.Dispose();
+			ViewModelLocator.GetViewModel<SettingsViewModel>().SaveSetting();
 		}
 
 		private void KeyDown(KeyEventArgs args)
@@ -77,7 +76,7 @@ namespace KeyboardTrainer.ViewModel
 			_homeVm.IsUpperKeys = capsToggled ^ shiftToggled;
 		}
 
-		public void TextInput(TextCompositionEventArgs args)
+		private void TextInput(TextCompositionEventArgs args)
 		{
 			if (CurrentView is HomeViewModel)
 			{
@@ -110,11 +109,6 @@ namespace KeyboardTrainer.ViewModel
 		private void MinimizeWindow(Window window)
 		{
 			window.WindowState = WindowState.Minimized;
-		}
-
-		private void MoveWindow(Window window)
-		{
-			window.DragMove();
 		}
 	}
 }

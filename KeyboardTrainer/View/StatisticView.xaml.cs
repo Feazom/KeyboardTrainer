@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using KeyboardTrainer.ViewModel;
+using System.Windows.Controls;
 
 namespace KeyboardTrainer.View
 {
@@ -10,6 +11,11 @@ namespace KeyboardTrainer.View
 		public StatisticView()
 		{
 			InitializeComponent();
+		}
+
+		private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+		{
+			ViewModelLocator.GetViewModel<StatisticViewModel>().LoadedCommand.Execute(null);
 		}
 	}
 }

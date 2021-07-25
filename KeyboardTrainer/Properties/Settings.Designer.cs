@@ -22,5 +22,29 @@ namespace KeyboardTrainer.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Vocabulary {
+            get {
+                return ((string)(this["Vocabulary"]));
+            }
+            set {
+                this["Vocabulary"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        public float Volume {
+            get {
+                return ((float)(this["Volume"]));
+            }
+            set {
+                this["Volume"] = value;
+            }
+        }
     }
 }

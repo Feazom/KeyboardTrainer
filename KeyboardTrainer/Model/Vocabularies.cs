@@ -30,7 +30,7 @@ namespace KeyboardTrainer.Model
 		public Vocabulary Current { get; private set; }
 
 		private static Vocabularies _instance;
-		private static readonly object _syncRoot = new Object();
+		private static readonly object _syncRoot = new object();
 		private static readonly string VocabularyRoot =
 			Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Vocabularies");
 
@@ -39,15 +39,15 @@ namespace KeyboardTrainer.Model
 			Collection = new List<Vocabulary>();
 			FillVocabularyList();
 
-			var settings = Settings.Load();
+			var vocabulary = Properties.Settings.Default.Vocabulary;
 
-			if (settings.SelectedVocabulary == null)
+			if (vocabulary == "")
 			{
 				Current = Collection.FirstOrDefault();
 			}
 			else
 			{
-				SetCurrentTo(settings.SelectedVocabulary);
+				SetCurrentTo(vocabulary);
 			}
 		}
 

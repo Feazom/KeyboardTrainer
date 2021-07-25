@@ -1,11 +1,4 @@
-﻿using NAudio.Wave;
-using System;
-using System.IO;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace KeyboardTrainer.Core.Audio
+﻿namespace KeyboardTrainer.Core.Audio
 {
 	public class AudioPlayer
 	{

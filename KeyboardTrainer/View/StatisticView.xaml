@@ -3,9 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:cmd="http://www.galasoft.ch/mvvmlight"
              xmlns:oxy="http://oxyplot.org/wpf"
              DataContext="{Binding Source={StaticResource Locator}, Path=Statistic}"
+             Loaded="UserControl_Loaded"
              mc:Ignorable="d" 
              d:DesignHeight="540" d:DesignWidth="850">
     <Grid>
@@ -13,13 +13,8 @@
             <RowDefinition Height="100"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <i:Interaction.Triggers>
-            <i:EventTrigger EventName="Loaded">
-                <cmd:EventToCommand Command="{Binding LoadedCommand, Mode=OneTime}"/>
-            </i:EventTrigger>
-        </i:Interaction.Triggers>
 
-        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Horizontal">
             <Label Content="Временной отрезок:"
                 Height="30"
                 Width="160"

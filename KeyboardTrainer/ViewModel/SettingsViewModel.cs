@@ -4,7 +4,6 @@ using KeyboardTrainer.Core.Audio;
 using KeyboardTrainer.Model;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 
 namespace KeyboardTrainer.ViewModel
 {
@@ -12,12 +11,13 @@ namespace KeyboardTrainer.ViewModel
 	{
 		public SettingsViewModel()
 		{
+			var volume = Properties.Settings.Default.Volume;
+			Volume = volume == -1 ? 1f : volume;
+
 			VocabularyList = Vocabularies.Instance.Collection.Select(n => n.Name).ToList();
 			SelectedVocabulary = Vocabularies.Instance.Current.Name;
-			_volume = 100;
 
 			SaveSettingCommand = new RelayCommand(SaveSetting);
-			//VolumeChangedCommand = new RelayCommand<RoutedPropertyChangedEventArgs<double>>(VolumeChanged);
 		}
 
 		#region Properties
@@ -37,31 +37,27 @@ namespace KeyboardTrainer.ViewModel
 			}
 		}
 
-		public double Volume
+		public float Volume
 		{
 			get => _volume;
 			set
 			{
 				_volume = value;
-				AudioPlayer.Instance.Volume((float)_volume);
+				AudioPlayer.Instance.Volume(_volume);
 				RaisePropertyChanged(nameof(Volume));
 			}
 		}
 		#endregion
 
 		private string _selectedVocabulary;
-		private double _volume;
+		private float _volume;
 
-		//private void VolumeChanged(RoutedPropertyChangedEventArgs<double> args)
-		//{
-		//	AudioPlayer.Instance.Volume((float)args.NewValue);
-		//}
-
-		private void SaveSetting()
+		public void SaveSetting()
 		{
-			var settings = Settings.Load();
-			settings.SelectedVocabulary = SelectedVocabulary;
-			settings.Save();
+			Properties.Settings.Default.Vocabulary = SelectedVocabulary;
+			Properties.Settings.Default.Volume = Volume;
+
+			Properties.Settings.Default.Save();
 		}
 	}
 }
