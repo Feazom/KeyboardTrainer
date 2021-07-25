@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace KeyboardTrainer.Core
+namespace KeyboardTrainer.Core.Converters
 {
 	public class ForegroundConverter : IMultiValueConverter
 	{

@@ -1,5 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:core="clr-namespace:KeyboardTrainer.Core"
+                    xmlns:converters="clr-namespace:KeyboardTrainer.Core.Converters"
                     xmlns:view="clr-namespace:KeyboardTrainer.View"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style x:Key="BaseKey" 
@@ -21,7 +21,7 @@
                             <Border.Background>
                                 <MultiBinding>
                                     <MultiBinding.Converter>
-                                        <core:BackgroundConverter/>
+                                        <converters:BackgroundConverter/>
                                     </MultiBinding.Converter>
                                     <Binding Path="Tag" RelativeSource="{RelativeSource TemplatedParent}"/>
                                     <Binding Path="RequiredKey"/>
@@ -38,7 +38,7 @@
                                 <Label.Content>
                                     <MultiBinding>
                                         <MultiBinding.Converter>
-                                            <core:KeysConverter/>
+                                            <converters:KeysConverter/>
                                         </MultiBinding.Converter>
                                         <Binding Path="Tag" RelativeSource="{RelativeSource TemplatedParent}"/>
                                         <Binding Path="IsUpperKeys"/>
@@ -47,7 +47,7 @@
                                 <Label.Foreground>
                                     <MultiBinding>
                                         <MultiBinding.Converter>
-                                            <core:ForegroundConverter/>
+                                            <converters:ForegroundConverter/>
                                         </MultiBinding.Converter>
                                         <Binding ElementName="keyBorder"/>
                                         <Binding Path="RequiredKey"/>

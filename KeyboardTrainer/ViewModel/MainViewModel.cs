@@ -1,5 +1,6 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using KeyboardTrainer.Core.Audio;
 using KeyboardTrainer.Model;
 using System.Windows;
 using System.Windows.Input;
@@ -23,7 +24,8 @@ namespace KeyboardTrainer.ViewModel
 			MoveWindowCommand = new RelayCommand<Window>(MoveWindow);
 			KeyDownCommand = new RelayCommand<KeyEventArgs>(KeyDown);
 			KeyUpCommand = new RelayCommand<KeyEventArgs>(KeyUp);
-			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(ViewModelLocator.GetViewModel<HomeViewModel>().TextInput);
+			TextInputCommand = new RelayCommand<TextCompositionEventArgs>(TextInput);
+			ClosedCommand = new RelayCommand(Closed);
 		}
 
 		#region Properties
@@ -36,6 +38,7 @@ namespace KeyboardTrainer.ViewModel
 		public RelayCommand<KeyEventArgs> KeyDownCommand { get; }
 		public RelayCommand<KeyEventArgs> KeyUpCommand { get; }
 		public RelayCommand<TextCompositionEventArgs> TextInputCommand { get; }
+		public RelayCommand ClosedCommand { get; }
 
 		public object CurrentView
 		{
@@ -56,6 +59,11 @@ namespace KeyboardTrainer.ViewModel
 		private object _currentView;
 		private readonly HomeViewModel _homeVm;
 
+		private void Closed()
+		{
+			AudioPlaybackEngine.Instance.Dispose();
+		}
+
 		private void KeyDown(KeyEventArgs args)
 		{
 			if (args.Key == Key.LeftCtrl || args.Key == Key.RightCtrl)
@@ -67,6 +75,14 @@ namespace KeyboardTrainer.ViewModel
 			var shiftToggled = args.KeyboardDevice.Modifiers == ModifierKeys.Shift;
 
 			_homeVm.IsUpperKeys = capsToggled ^ shiftToggled;
+		}
+
+		public void TextInput(TextCompositionEventArgs args)
+		{
+			if (CurrentView is HomeViewModel)
+			{
+				ViewModelLocator.GetViewModel<HomeViewModel>().TextInput(args);
+			}
 		}
 
 		private void KeyUp(KeyEventArgs args)

@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace KeyboardTrainer.Core
+namespace KeyboardTrainer.Core.Converters
 {
 	public class KeysConverter : IMultiValueConverter
 	{

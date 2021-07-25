@@ -2,7 +2,7 @@
 using System.Text;
 using System.Windows.Input;
 
-namespace KeyboardTrainer.Core
+namespace KeyboardTrainer.Core.Converters
 {
 	public class KeyboardConvert
 	{

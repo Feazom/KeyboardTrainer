@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using KeyboardTrainer.Core;
+using KeyboardTrainer.Core.Audio;
 using KeyboardTrainer.Model;
 using System;
 using System.Diagnostics;
@@ -23,6 +24,7 @@ namespace KeyboardTrainer.ViewModel
 			_typedText = new StringBuilder(17);
 			_nextText = new StringBuilder();
 			_stopwatch = new Stopwatch();
+			_ = AudioPlayer.Instance;
 
 			LoadedCommand = new RelayCommand(Reset);
 			SaveResultCommand = new RelayCommand(SaveResult);
@@ -126,7 +128,7 @@ namespace KeyboardTrainer.ViewModel
 
 			Time = TimeSpan.Zero;
 			TypedText = "";
-			NextText = Vocabularies.Instance.GetContent(5, true);
+			NextText = Vocabularies.Instance.GetContent(50, true);
 			RequiredKey = NextText[0];
 			_currentVocabulary = Vocabularies.Instance.Current.Name;
 		}
@@ -161,6 +163,7 @@ namespace KeyboardTrainer.ViewModel
 
 			if (key != expectedKey)
 			{
+				AudioPlayer.Instance.Fail();
 				_errorsCount++;
 				SetErrorsFraction(new Fraction(_errorsCount, _typedKey + _errorsCount));
 				return;

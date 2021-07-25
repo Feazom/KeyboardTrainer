@@ -33,6 +33,10 @@
                 <cmd:EventToCommand Command="{Binding TextInputCommand, Mode=OneTime}"
                     PassEventArgsToCommand="True"/>
             </i:EventTrigger>
+
+            <i:EventTrigger EventName="Closed">
+                <cmd:EventToCommand Command="{Binding ClosedCommand, Mode=OneTime}"/>
+            </i:EventTrigger>
         </i:Interaction.Triggers>
 
         <Grid>
