@@ -32,23 +32,23 @@
             <StackPanel Margin="0"
 			Orientation="Horizontal">
 
-                <TextBlock Text="{Binding CharPerMinute, Mode=OneWay, StringFormat=CPM: {0}}"
+                <TextBlock Text="{Binding CharPerMinute, Mode=OneWay, StringFormat=С/М: {0}}"
 				TextAlignment="Left"
 				FontSize="20"
 				Width="100"
 				Margin="20,45,70,0"/>
                 <StackPanel>
-                    <Label Content="Your Results:"
+                    <Label Content="Результаты:"
 					FontSize="23"
 					HorizontalContentAlignment="Center"
 					Height="30"
 					Padding="0"/>
 
-                    <TextBlock Text="{Binding ErrorsPercent, Mode=OneWay, StringFormat=Errors: \{0\}%}"
+                    <TextBlock Text="{Binding ErrorsPercent, Mode=OneWay, StringFormat=Ошибки: \{0\}%}"
 					TextAlignment="Left"
 					FontSize="20"
-					Width="120"
-					Margin="60,15,50,0">
+					Width="150"
+					Margin="45,15,35,0">
                     </TextBlock>
 
                     <Button Content="OK"
@@ -61,10 +61,10 @@
 
                 <TextBlock TextAlignment="Right"
 				FontSize="20"
-				Width="110"
-				Margin="50,45,20,0">
+				Width="130"
+				Margin="38,45,20,0">
                     <TextBlock.Text>
-                        <MultiBinding StringFormat="{}Time: {0:00}:{1:00}" Mode="OneWay">
+                        <MultiBinding StringFormat="{}Время: {0:00}:{1:00}" Mode="OneWay">
                             <Binding Path="Time.Minutes"/>
                             <Binding Path="Time.Seconds"/>
                         </MultiBinding>
@@ -81,23 +81,23 @@
 			Grid.Column="1" 
 			Grid.Row="1">
 
-            <TextBlock Text="{Binding CharPerMinute, Mode=OneWay, StringFormat=CPM: {0}}"
+            <TextBlock Text="{Binding CharPerMinute, Mode=OneWay, StringFormat=С/М: {0}}"
 				TextAlignment="Left"
 				FontSize="20"
 				Width="100"
 				Margin="0,0,70,0"/>
-            <TextBlock Text="{Binding ErrorsPercent, Mode=OneWay, StringFormat=Errors: \{0\}%}"
+            <TextBlock Text="{Binding ErrorsPercent, Mode=OneWay, StringFormat=Ошибки: \{0\}%}"
 				TextAlignment="Left"
 				FontSize="20"
-				Width="120"
-				Margin="65,0,65,0"/>
+				Width="150"
+				Margin="50,0,50,0"/>
 
             <TextBlock TextAlignment="Right"
 				FontSize="20"
-				Width="110"
+				Width="130"
 				Margin="50,0,0,0">
                 <TextBlock.Text>
-                    <MultiBinding StringFormat="{}Time: {0:00}:{1:00}" Mode="OneWay">
+                    <MultiBinding StringFormat="{}Время: {0:00}:{1:00}" Mode="OneWay">
                         <Binding Path="Time.Minutes"/>
                         <Binding Path="Time.Seconds"/>
                     </MultiBinding>
@@ -249,14 +249,14 @@
                     Orientation="Horizontal">
 
                     <Label Tag="CTRL" Style="{StaticResource Empty}"/>
-                    <Label Tag="OPT"  Style="{StaticResource Empty}">
-                        <Image Source="/Images/windows.png" Margin="7"/>
+                    <Label Tag="WIN"  Style="{StaticResource Empty}">
+                        <!--<Image Source="/Images/windows.png" Margin="7"/>-->
                     </Label>
                     <Label Tag="ALT" Style="{StaticResource Empty}"/>
                     <Label Tag="SPACE" Style="{StaticResource Space}"/>
                     <Label Tag="ALT" Style="{StaticResource Empty}"/>
                     <Label Tag="OPT"  Style="{StaticResource Empty}">
-                        <Image Source="/Images/menu.png" Margin="7"/>
+                        <!--<Image Source="/Images/menu.png" Margin="7"/>-->
                     </Label>
                     <Label Tag="FN" Style="{StaticResource Empty}"/>
                     <Label Tag="CTRL" Style="{StaticResource Empty}"/>
